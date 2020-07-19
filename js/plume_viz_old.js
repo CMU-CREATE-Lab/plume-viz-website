@@ -166,7 +166,7 @@
       console.warn("Browser not supported.");
       showGalleryNotSupportedMsg();
     }
-    $.getJSON("data/video.json", function (data) {
+    $.getJSON("data/plume_viz_old.json", function (data) {
       initPagination(data);
     });
   }

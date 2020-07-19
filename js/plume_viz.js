@@ -6,14 +6,18 @@
   var url_root = "https://cocalc-www.createlab.org/pardumps/video/"
 
   function init() {
+    var $vid = $("#video-viewer");
     util.addVideoClearEvent();
     $.getJSON("data/plume_viz.json", function (data) {
       var timeline_setting = {
-        click: function ($e, obj) {
-          console.log("click", $e.data(), obj);
-        },
         select: function ($e, obj) {
-          console.log("select", $e.data(), obj);
+          var metadata = $e.data();
+          $vid.one("canplay", function () {
+            // Play the video
+            util.handleVideoPromise(this, "play");
+          });
+          $vid.prop("src", url_root + metadata["file_name"]);
+          util.handleVideoPromise($vid.get(0), "load"); // load to reset video promise
         },
         colorBin: [0, 16, 32, 46, 77, 183],
         colorRange: ["#ededed", "#dbdbdb", "#afafaf", "#848383", "#545454", "#000000"],
