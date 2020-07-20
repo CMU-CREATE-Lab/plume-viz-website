@@ -56,17 +56,34 @@
     return $item;
   }
 
-  // Input v need to have "file_name"
+  // Input v need to have "url_part" and "url_root" and "file_name"
   function updateItem($item, v) {
+    // Update date and time information
+    var fns = v["file_name"].split("-");
+    var $i = $item.children(".label-control").find("i").removeClass();
+    var date_str = (new Date(parseInt(fns[12]) * 1000)).toLocaleString("en-US", {
+      timeZone: "America/New_York",
+      hour: "2-digit",
+      minute: "2-digit",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour12: false
+    })
+    $($i.get(0)).text(date_str).addClass("custom-text-info-dark-theme");
     var $i_i = $item.children("i").removeClass();
-    //$i_i.html("&#10004;").addClass("custom-text-primary-dark-theme");
     $i_i.text("");
     var $vid = $item.find("video");
     $vid.one("canplay", function () {
       // Play the video
       util.handleVideoPromise(this, "play");
     });
-    var src_url = url_root + v["file_name"];
+    var src_url = v["url_root"] + v["url_part"];
+    // There is a bug that the edge of small videos have weird artifacts on Google Pixel Android 9 and 10.
+    // The current workaround is to make the thumbnail larger.
+    if (util.getAndroidVersion() >= 9) {
+      src_url = util.replaceThumbnailWidth(src_url, 320);
+    }
     $vid.prop("src", src_url);
     util.handleVideoPromise($vid.get(0), "load"); // load to reset video promise
     return $item;
@@ -106,7 +123,7 @@
     $page_nav.pagination({
       dataSource: data_sources,
       className: "paginationjs-custom",
-      pageSize: 4,
+      pageSize: 16,
       showPageNumbers: false,
       showNavigator: true,
       showGoInput: true,
@@ -166,8 +183,8 @@
       console.warn("Browser not supported.");
       showGalleryNotSupportedMsg();
     }
-    $.getJSON("data/plume_viz_old.json", function (data) {
-      initPagination(data);
+    $.getJSON("data/gallery.json", function (data) {
+      initPagination(data["data"]);
     });
   }
 
