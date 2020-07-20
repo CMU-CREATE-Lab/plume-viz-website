@@ -55,6 +55,67 @@
     transform: translate(-50%, -50%);
   }
 
+  .video-viewer:focus {
+    outline: none;
+  }
+
+  .legend-container {
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    padding: 12px 15px 13px 15px;
+    background-color: rgba(255, 255, 255, 0.75);
+    border: 1px solid #777;
+    font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+  }
+
+  .legend-container .legend-title {
+    text-align: left;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 90%;
+  }
+
+  .legend-container .legend-scale ul {
+    margin: 0;
+    padding: 0;
+    float: left;
+    list-style: none;
+  }
+
+  .legend-container .legend-scale ul li {
+    font-size: 80%;
+    list-style: none;
+    margin-left: 0;
+    line-height: 18px;
+  }
+
+  .legend-container .legend-scale ul li:not(:last-child) {
+    margin-bottom: 4px;
+  }
+
+  .legend-container ul.legend-labels li span {
+    display: block;
+    float: left;
+    height: 16px;
+    width: 30px;
+    margin-right: 7px;
+    margin-left: 0;
+    border: 1px solid #777;
+  }
+
+  .legend-container .legend-source {
+    font-size: 70%;
+    color: #777;
+    clear: both;
+    padding-top: 8px;
+  }
+
+  .legend-container a {
+    color: #777;
+  }
+
   .noselect {
     -webkit-touch-callout: none;
     /* iOS Safari */
@@ -75,6 +136,18 @@
   <div id="timeline-container" class="noselect timeline-container"></div>
   <div id="video-container" class="noselect video-container">
     <video id="video-viewer" class="video-viewer" autoplay loop muted playsinline playsInline disableRemotePlayback controls></video>
+    <div class="legend-container noselect">
+      <div class="legend-title">Sources of Plume</div>
+      <div class="legend-scale">
+        <ul class="legend-labels">
+          <li><span style="background:#b05ed6;"></span>USX Clairton Coke Works</li>
+          <li><span style="background:#dae65f;"></span>USX Irvin Works</li>
+          <li><span style="background:#6aeec1;"></span>USX Edgar Thompson Works</li>
+          <li><span style="background:#ec8a27;"></span>Cheswick Generating Station</li>
+        </ul>
+      </div>
+      <!-- <div class="legend-source">Source: <a href="#link to source">Name of source</a></div> -->
+    </div>
   </div>
 </body>
 
