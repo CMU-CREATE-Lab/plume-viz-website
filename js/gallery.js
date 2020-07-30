@@ -82,7 +82,7 @@
     // There is a bug that the edge of small videos have weird artifacts on Google Pixel Android 9 and 10.
     // The current workaround is to make the thumbnail larger.
     if (util.getAndroidVersion() >= 9) {
-      src_url = util.replaceThumbnailWidth(src_url, 320);
+      src_url = util.replaceThumbnailWidth(src_url);
     }
     $vid.prop("src", src_url);
     util.handleVideoPromise($vid.get(0), "load"); // load to reset video promise
