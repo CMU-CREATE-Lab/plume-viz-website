@@ -28,7 +28,7 @@
         dataIndexForColors: 1 // columnNames[1] is used for the color of the block
       };
       timeline = new edaplotjs.TimelineHeatmap("timeline-container", timeline_setting);
-      timeline.selectBlockByIndex(11);
+      timeline.selectBlockByIndex(timeline.getNumberOfBlocks() - 2);
     });
   }
 
