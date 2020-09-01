@@ -343,6 +343,12 @@
     this.replaceThumbnailWidth = function (url) {
       return url.replace("/180/", "/320/").replace("-180-180-", "-320-320-").replace("width=180", "width=320").replace("height=180", "height=320");
     };
+
+    // Set the query string of the current window
+    this.setShareUrl = function (updated_query_url) {
+      var replaced = window.location.protocol + "//" + window.location.hostname + window.location.pathname + updated_query_url;
+      window.history.replaceState("shareURL", "Title", replaced);
+    };
   };
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
