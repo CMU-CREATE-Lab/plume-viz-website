@@ -6,6 +6,9 @@
   var url_root = "https://cocalc-www.createlab.org/pardumps/video/";
   var date_to_index;
   var current_date = "2019-04-02";
+  var widgets = new edaplotjs.Widgets();
+  var $calendar_dialog;
+  var $calendar_select;
 
   // Handles the sending of cross-domain iframe requests.
   function post(type, data) {
@@ -46,6 +49,42 @@
     timeline.selectBlockByIndex(date_to_index[current_date]);
   }
 
+  function initCalendarBtn() {
+    // Create the calendar dialog
+    $calendar_dialog = widgets.createCustomDialog({
+      selector: "#calendar-dialog",
+      full_width_button: true,
+      show_cancel_btn: false
+    });
+
+    // Add event to the calendar button
+    $("#calendar-btn").on("click", function () {
+      $calendar_dialog.dialog("open");
+    });
+
+    // Add event to the calendar select
+    $calendar_select = $("#calendar");
+    $calendar_select.on("change", function () {
+      $calendar_dialog.dialog("close");
+      var $selected = $calendar_select.find(":selected");
+      var selected_value = $selected.val();
+      if ($calendar_select.data("value") != selected_value) {
+        console.log($selected.data("year"));
+      }
+      // Save the current selected index
+      $calendar_select.data("value", selected_value);
+    });
+  }
+
+  function drawCalendar(year_list) {
+    $calendar_select.empty();
+    $calendar_select.append($("<option selected>Select...</option>"));
+    for (var i = year_list.length - 1; i >= 0; i--) {
+      var year = year_list[i];
+      $calendar_select.append($('<option value="' + i + '" data-year="' + year + '">' + year + '</option>'));
+    }
+  }
+
   function init() {
     var $vid = $("#video-viewer");
     util.addVideoClearEvent();
@@ -76,6 +115,8 @@
       };
       timeline = new edaplotjs.TimelineHeatmap("timeline-container", timeline_setting);
       setDateFromShareURL();
+      initCalendarBtn();
+      drawCalendar([2020, 2019]);
     });
   }
 
