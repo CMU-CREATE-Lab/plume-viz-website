@@ -136,10 +136,7 @@
   function init() {
     $vid = $("#video-viewer");
     util.addVideoClearEvent();
-    $("#legend").accordion({
-      collapsible: true,
-      animate: false
-    });
+    widgets.setCustomLegend($("#legend"));
     $.getJSON("data/plume_viz_dev.json", function (data) {
       plume_viz_data = data
       // Build the dictionary that maps date to the block index
