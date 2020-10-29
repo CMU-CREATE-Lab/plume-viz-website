@@ -3,7 +3,7 @@
 
   var util = new edaplotjs.Util();
   var timeline;
-  var url_root = "https://cocalc-www.createlab.org/pardumps/video/";
+  var url_root = "https://cocalc-www.createlab.org/pardumps/plumeviz/video/";
   var date_to_index;
   var current_date = "2019-04-02"; // the default date
   var current_year = current_date.split("-")[0];

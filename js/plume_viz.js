@@ -3,7 +3,7 @@
 
   var util = new edaplotjs.Util();
   var timeline;
-  var url_root = "https://cocalc-www.createlab.org/pardumps/video/"
+  var url_root = "https://cocalc-www.createlab.org/pardumps/plumeviz/video/"
 
   function init() {
     var $vid = $("#video-viewer");
