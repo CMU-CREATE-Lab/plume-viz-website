@@ -3,12 +3,12 @@
 
   var util = new edaplotjs.Util();
   var timeline;
-  var url_root = "https://cocalc-www.createlab.org/pardumps/plumeviz/video_old/"
+  var url_root = "https://aircocalc-www.createlab.org/pardumps/plumeviz/video_old/"
 
   function init() {
     var $vid = $("#video-viewer");
     util.addVideoClearEvent();
-    $.getJSON("data/plume_viz.json", function (data) {
+    $.getJSON("data/plume_viz_old.json", function (data) {
       var timeline_setting = {
         select: function ($e, obj) {
           var metadata = $e.data();

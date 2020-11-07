@@ -5,7 +5,7 @@
 
   function setIframeSrc() {
     var $viz_iframe = $("#viz-iframe");
-    var src = "plume_viz_dev.html" + window.location.search;
+    var src = "plume_viz.html" + window.location.search;
     $viz_iframe.prop("src", src);
   }
 
