@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Plume PGH</title>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="css/frame.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="css/controls.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="css/custom.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="js/Util.js"></script>
+    <script src="js/postmessage.js"></script>
+    <script src="js/index.js"></script>
+  <style>
+    .menu-index {
+      color: rgb(255, 255, 255) !important;
+      opacity: 1 !important;
+      font-weight: 700 !important;
+    }
+  </style>
+</head>
+
+<body>
+    <div class="menu-container">
+        <div class="menu">
+          <div class="menu-table flex-row-space-between">
+            <div class="logo flex-row-center">
+              <a href="index.html">Plume PGH</a>
+            </div>
+            <a class="menu-button" tabindex="0" href="javascript:void(0)">
+              <img src="img/menu.png">
+            </a>
+            <div class="menu-items flex-row-center flex-item">
+              <a href="index.html">Map</a>
+              <a href="about.html" class="menu-highlight">Model and Data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+  <div class="content-container">
+    <div class="content">
+      <div class="content-table flex-column">
+        <!--Start Text Only-->
+        <div class="flex-row">
+          <div class="flex-item flex-column">
+            <h2 class="add-top-margin">Moving dots show how pollution moves from some of the highest emitting sources,
+                according to the most detailed NOAA weather models.
+            </h2>
+            <hr>
+            <p class="text">
+                While no weather model is perfect, and a number of smaller pollution sources aren't mapped, the modeled pollution paths show striking correspondence with <a href="http://smellpittsburgh.org">Smell Pittsburgh</a> reports, and show how emissions maintain significant concentration in the air even miles from a source, especially on days when the ground is colder than the upper level atmosphere, causing pollution to concentrate close to the ground in a common condition known as an inversion.  The greater Pittsburgh area experiences around XX inversions per year.
+            </p>
+            <br>
+            <p class="text">
+              This model shows only the variability from weather conditions and does not consider individual sources changing pollutant outputs over time.
+            </p>
+        <!--End Text Only-->
+        <!-------------------------------------------------------------------------------------------->
+        <h3>References</h3>
+        <ol style="color:white">
+          <li>
+            <p class="text-small-margin text-italic">
+              Smell Pittsburgh: <a href="http://smellpittsburgh.org">smellpittsburgh.org</a>
+            </p>
+          </li>
+          <li>
+            <p class="text-small-margin text-italic">
+              NOAA High-Resolution Rapid Refresh (HRRR): <a href="https://rapidrefresh.noaa.gov/hrrr/">rapidrefresh.noaa.gov</a>
+            </p>
+          </li>
+          <li>
+            <p class="text-small-margin text-italic">
+              Environmental Sensor Data Repository (ESDR): <a href="http://environmentaldata.org">environmentaldata.org</a>
+            </p>
+          </li>
+        </ol>
+      </div>
+    </div>
+        <!-------------------------------------------------------------------------------------------->
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

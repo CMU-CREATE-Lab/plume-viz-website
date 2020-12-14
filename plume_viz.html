@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Plume Tracking</title>
+  <title>Plume PGH</title>
   <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" media="screen" rel="stylesheet" type="text/css" />
   <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" media="screen" rel="stylesheet" type="text/css" />
@@ -72,6 +72,10 @@
     margin: 0;
   }
 
+  .smell-legend {
+    width: 60%;
+  }
+
   #calendar-btn {
     position: absolute;
     left: 0;
@@ -103,13 +107,15 @@
   <div id="video-container" class="noselect video-container">
     <video id="video-viewer" class="video-viewer" autoplay loop muted playsinline playsInline disableRemotePlayback controls></video>
     <div class="custom-legend noselect" id="legend">
-      <h3 class="legend-title">Sources of Plume</h3>
+      <h3 class="legend-title">More info</h3>
       <div class="legend-scale">
         <ul class="legend-labels">
+          <li><img class="smell-legend" src="img/smell_legend.png"> Smell Reports</li>
           <li><span style="background:#b05ed6;"></span>Clairton Coke Works</li>
           <li><span style="background:#dae65f;"></span>Irvin Works</li>
           <li><span style="background:#6aeec1;"></span>Edgar Thompson Works</li>
           <li><span style="background:#ec8a27;"></span>Cheswick Generating Station</li>
+          <li><a target="_top" href="about.html">About the model and data</a></li>
         </ul>
       </div>
     </div>
