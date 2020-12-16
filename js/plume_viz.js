@@ -4,7 +4,7 @@
   var util = new edaplotjs.Util();
   var timeline;
   var date_to_index;
-  var current_date = "2019-04-02"; // the default date
+  var current_date = "2019-04-28"; // the default date
   var current_year = current_date.split("-")[0];
   var widgets = new edaplotjs.Widgets();
   var $calendar_dialog;
@@ -139,7 +139,16 @@
     if ($(window).width() < 400) {
       $( ".custom-legend" ).accordion( "option", "active", false );
     }
-    $.getJSON("data/plume_viz.json", function (data) {
+
+    var query_paras = util.parseVars(window.location.search);
+    var json_path;
+    if ("showAll" in query_paras && query_paras["showAll"]) {
+      json_path = "data/plume_viz.json";
+    }
+    else {
+      json_path = "data/plume_viz_selected.json";
+    }
+    $.getJSON(json_path, function (data) {
       plume_viz_data = data
       // Build the dictionary that maps date to the block index
       date_to_index = buildDateIndexMap(plume_viz_data);
