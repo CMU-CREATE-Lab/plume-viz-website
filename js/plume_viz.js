@@ -94,6 +94,13 @@
           // Play the video
           util.handleVideoPromise(this, "play");
         });
+
+        // inform potential listeners of date change (like the sensor overlay)
+        if (window.plumeVizDateChangeListeners)
+          for (var listener of window.plumeVizDateChangeListeners) {
+            listener(metadata.date)
+          }
+
         $vid.prop("src", metadata["url"]);
         util.handleVideoPromise($vid.get(0), "load"); // load to reset video promise
         var updated_query_url = getShareQuery(metadata["date"])
