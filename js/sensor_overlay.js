@@ -15,7 +15,7 @@ let allEsdrFeedsReceived = false
 let feedSearchResults = undefined
 let feedMarkerColorizers = new Map()
 
-let sensorSearchText = "tVOC"
+let sensorSearchText = "ACHD SO2"
 // filter out the RAMPS sensors, as their SO2 is unreliable
 let sensorSearchNegativeTerms = ["RAMP"]
 let allowedSensorChannelNames = new Set(["SO2", "SO2_PPM", "SO2_PPB", "tvoc", "tVOC_internal_0", "PM25_UG_M3", "PM25T_UG_M3", "PM2_5", "pm_sensor_voltage"])
