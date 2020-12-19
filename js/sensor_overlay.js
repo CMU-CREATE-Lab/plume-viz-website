@@ -12,8 +12,13 @@ let currentVideoEpochTime = undefined
 let mapOverlay = undefined
 let esdr = undefined
 let allEsdrFeedsReceived = false
+let feedSearchResults = undefined
 let feedMarkerColorizers = new Map()
 
+let sensorSearchText = "tVOC"
+// filter out the RAMPS sensors, as their SO2 is unreliable
+let sensorSearchNegativeTerms = ["RAMP"]
+let allowedSensorChannelNames = new Set(["SO2", "SO2_PPM", "SO2_PPB", "tvoc", "tVOC_internal_0", "PM25_UG_M3", "PM25T_UG_M3", "PM2_5", "pm_sensor_voltage"])
 
 function setCurrentVideoTime(videoTime) {
 	currentVideoEpochTime = videoTime
@@ -69,6 +74,10 @@ function stopPollingVideoTime(video) {
 	}
 }
 
+function getCurrentTimeRange() {
+	return {min: currentVideoDate.getTime()/1000.0, max: currentVideoDate.getTime()/1000.0 + 24*60*60}
+}
+
 
 function colorizeFeedOnMap(feedId, channelName) {
   let colorizer = new TiledDataEvaluator(esdr.dataSourceForChannel(feedId, channelName))
@@ -78,7 +87,7 @@ function colorizeFeedOnMap(feedId, channelName) {
   feedMarkerColorizers.set(feedId, colorizer)
 
   if (currentVideoDate) {
-    colorizer.setCurrentRange({min: currentVideoDate.getTime()/1000.0, max: currentVideoDate.getTime()/1000.0 + 24*60*60})
+    colorizer.setCurrentRange(getCurrentTimeRange())
 
     if (currentVideoEpochTime) {
     	colorizer.setCurrentTime(currentVideoEpochTime)
@@ -87,6 +96,38 @@ function colorizeFeedOnMap(feedId, channelName) {
 
 
 }
+
+function clearColorizers() {
+	for (let [feedId, colorizer] of feedMarkerColorizers) {
+	  mapOverlay.setColorizerForFeed(feedId, undefined, undefined)		
+	}
+}
+
+function populateColorizers() {
+	if (!feedSearchResults)
+		return
+
+	let currentTimeRange = getCurrentTimeRange()
+	for (let {feedId: feedId, channels: channels} of feedSearchResults) {
+		let feed = esdr.feeds.get(feedId)
+		// exclude feed names that any contain negative term
+		let isExcludedByTerm = sensorSearchNegativeTerms.some(term => feed.name.indexOf(term) > -1)
+		let isExcludedByTime = (parseFloat(feed.maxTimeSecs || 0.0) <= currentTimeRange.max) || (parseFloat(feed.minTimeSecs || 0.0) >= currentTimeRange.min)
+
+		if (isExcludedByTerm || isExcludedByTime || !channels)
+			continue
+
+		channels = channels.filter( name => allowedSensorChannelNames.has(name))
+		if (channels.length > 0) {
+			// console.log("colorizing", feedId, channels[0])
+			colorizeFeedOnMap(feedId, channels[0])
+			// esdr.selectChannelWithId(channelId, true)
+  		mapOverlay.selectFeed(feedId, true)		
+  	}
+	}
+
+}
+
 
 function esdrFeedsReceived(feedIds, progress) {
 	// console.log("esdrFeedsReceived", progress)
@@ -106,22 +147,9 @@ function processEsdrSearchResults(searchResults, isAppendUpdate) {
 	if (!allEsdrFeedsReceived)
 		return
 
-	let so2Names = new Set(["SO2", "SO2_PPM", "SO2_PPB"])
+	feedSearchResults = searchResults
 
-	for (let {feedId: feedId, channels: channels} of searchResults) {
-		let feed = esdr.feeds.get(feedId)
-		// filter out the RAMPS sensors, as their SO2 is unreliable
-		if (feed.name.indexOf("RAMP") > -1)
-			continue
-
-		channels = channels.filter( name => so2Names.has(name))
-		if (channels.length > 0) {
-			// console.log("colorizing", feedId, channels[0])
-			colorizeFeedOnMap(feedId, channels[0])
-			// esdr.selectChannelWithId(channelId, true)
-  		mapOverlay.selectFeed(feedId, true)		
-  	}
-	}
+	populateColorizers()
 
 }
 
@@ -165,6 +193,15 @@ function addVideoEventListeners(video) {
 	})
 }
 
+
+function hashChangeListener() {
+  // TODO: implement event handling on hash changes
+  // - does hash change when we set it via updateUrlHash()?
+  // - need to refactor initialization to use the proper methods for setting up the UI based on initial hash and later changes the same way
+  console.log("URL hash changed!")
+}
+
+
 function initSensorOverlay() {
 	let video = document.getElementById("video-viewer")
 	let videoContainer = document.getElementById("video-container")
@@ -199,14 +236,13 @@ function initSensorOverlay() {
 		// console.log("theDate", date)
 
 		currentVideoDate = date
-
-		let minTime = currentVideoDate.getTime()/1000.0
-		let maxTime = currentVideoDate.getTime()/1000.0 + 24*60*60
 		// console.log("theDate", date, minTime, maxTime)
 
-		for (let [feedId, colorizer] of feedMarkerColorizers) {
-  		colorizer.setCurrentRange({min: minTime, max: maxTime}, true)
-		}
+		clearColorizers()
+		populateColorizers()
+		// for (let [feedId, colorizer] of feedMarkerColorizers) {
+  // 		colorizer.setCurrentRange(getCurrentTimeRange(), true)
+		// }
 
 		videoTimeChanged(video)
 	})
@@ -221,7 +257,7 @@ function initSensorOverlay() {
 	esdr = new ESDR(mapBox)
 	mapOverlay = new StaticMapOverlay(overlayDiv, mapBox)
 
-	esdr.searchQuery = {text: "ACHD SO2"}
+	esdr.searchQuery = {text: sensorSearchText}
 
   // install search results callback
   esdr.searchCallback = (searchResults, isAppendUpdate) => processEsdrSearchResults(searchResults, isAppendUpdate)
@@ -234,6 +270,10 @@ function initSensorOverlay() {
   	overlayDiv.style.width = `${videoContainer.offsetWidth}px`
 		overlayDiv.style.height = `${videoContainer.offsetHeight}px`
   })
+
+
+	window.addEventListener('hashchange', () => hashChangeListener)
+
 }
 
 
