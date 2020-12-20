@@ -16,6 +16,7 @@ let feedSearchResults = undefined
 let feedMarkerColorizers = new Map()
 
 let sensorSearchText = "ACHD SO2"
+let colorMapAmplificationFactor = 5.0
 // filter out the RAMPS sensors, as their SO2 is unreliable
 let sensorSearchNegativeTerms = ["RAMP"]
 let allowedSensorChannelNames = new Set(["SO2", "SO2_PPM", "SO2_PPB", "tvoc", "tVOC_internal_0", "PM25_UG_M3", "PM25T_UG_M3", "PM2_5", "pm_sensor_voltage"])
@@ -82,7 +83,7 @@ function getCurrentTimeRange() {
 function colorizeFeedOnMap(feedId, channelName) {
   let colorizer = new TiledDataEvaluator(esdr.dataSourceForChannel(feedId, channelName))
 
-  mapOverlay.setColorizerForFeed(feedId, channelName, colorizer)
+  mapOverlay.setColorizerForFeed(feedId, channelName, colorizer, colorMapAmplificationFactor)
 
   feedMarkerColorizers.set(feedId, colorizer)
 
