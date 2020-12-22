@@ -263,6 +263,11 @@ function initSensorOverlay() {
 	esdr = new ESDR(mapBox)
 	mapOverlay = new StaticMapOverlay(overlayDiv, mapBox)
 
+	mapOverlay.colors.rejectedFeedFillColor = [0.0, 0.0, 0.0, 0.0]
+	mapOverlay.colors.rejectedFeedStrokeColor = [0.0, 0.0, 0.0, 0.0]
+	mapOverlay.colors.selectedFeedStrokeColor = [0.0, 0.0, 0.0, 0.0]
+	mapOverlay.colors.activeFeedStrokeColor = [0.0, 0.0, 0.0, 0.0]
+
 	esdr.searchQuery = {text: overlayOptions.sensorSearchText}
 
   // install search results callback
