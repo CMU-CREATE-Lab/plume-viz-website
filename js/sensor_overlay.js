@@ -15,11 +15,14 @@ let allEsdrFeedsReceived = false
 let feedSearchResults = undefined
 let feedMarkerColorizers = new Map()
 
-let sensorSearchText = "ACHD SO2"
-let colorMapAmplificationFactor = 5.0
-// filter out the RAMPS sensors, as their SO2 is unreliable
-let sensorSearchNegativeTerms = ["RAMP"]
-let allowedSensorChannelNames = new Set(["SO2", "SO2_PPM", "SO2_PPB", "tvoc", "tVOC_internal_0", "PM25_UG_M3", "PM25T_UG_M3", "PM2_5", "pm_sensor_voltage"])
+let overlayOptions = {
+	sensorSearchText: "ACHD SO2",
+	colorMapAmplificationFactor: 5.0,
+	// filter out the RAMPS sensors, as their SO2 is unreliable
+	sensorSearchNegativeTerms: ["RAMP"],
+	allowedSensorChannelNames: new Set(["SO2", "SO2_PPM", "SO2_PPB", "tvoc", "tVOC_internal_0", "PM25_UG_M3", "PM25T_UG_M3", "PM2_5", "pm_sensor_voltage"]),
+	colorizerLookupFunctionFactory: (feedId, channelName) => undefined,
+}
 
 function setCurrentVideoTime(videoTime) {
 	currentVideoEpochTime = videoTime
@@ -83,7 +86,9 @@ function getCurrentTimeRange() {
 function colorizeFeedOnMap(feedId, channelName) {
   let colorizer = new TiledDataEvaluator(esdr.dataSourceForChannel(feedId, channelName))
 
-  mapOverlay.setColorizerForFeed(feedId, channelName, colorizer, colorMapAmplificationFactor)
+  let colorLookupFunction = overlayOptions.colorizerLookupFunctionFactory(feedId, channelName)
+
+  mapOverlay.setColorizerForFeed(feedId, channelName, colorizer, colorLookupFunction, overlayOptions.colorMapAmplificationFactor)
 
   feedMarkerColorizers.set(feedId, colorizer)
 
@@ -112,13 +117,13 @@ function populateColorizers() {
 	for (let {feedId: feedId, channels: channels} of feedSearchResults) {
 		let feed = esdr.feeds.get(feedId)
 		// exclude feed names that any contain negative term
-		let isExcludedByTerm = sensorSearchNegativeTerms.some(term => feed.name.indexOf(term) > -1)
+		let isExcludedByTerm = overlayOptions.sensorSearchNegativeTerms.some(term => feed.name.indexOf(term) > -1)
 		let isExcludedByTime = (parseFloat(feed.maxTimeSecs || 0.0) <= currentTimeRange.max) || (parseFloat(feed.minTimeSecs || 0.0) >= currentTimeRange.min)
 
 		if (isExcludedByTerm || isExcludedByTime || !channels)
 			continue
 
-		channels = channels.filter( name => allowedSensorChannelNames.has(name))
+		channels = channels.filter( name => overlayOptions.allowedSensorChannelNames.has(name))
 		if (channels.length > 0) {
 			// console.log("colorizing", feedId, channels[0])
 			colorizeFeedOnMap(feedId, channels[0])
@@ -258,7 +263,7 @@ function initSensorOverlay() {
 	esdr = new ESDR(mapBox)
 	mapOverlay = new StaticMapOverlay(overlayDiv, mapBox)
 
-	esdr.searchQuery = {text: sensorSearchText}
+	esdr.searchQuery = {text: overlayOptions.sensorSearchText}
 
   // install search results callback
   esdr.searchCallback = (searchResults, isAppendUpdate) => processEsdrSearchResults(searchResults, isAppendUpdate)
@@ -274,6 +279,19 @@ function initSensorOverlay() {
 
 
 	window.addEventListener('hashchange', () => hashChangeListener)
+
+	window.sensorOverlaySetOptions = (sensorOverlayOptions) => {
+		clearColorizers()
+		feedMarkerColorizers = new Map()
+		overlayOptions = sensorOverlayOptions
+
+		esdr.searchQuery = {text: overlayOptions.sensorSearchText}
+
+	}
+
+	if (window.parent.sensorOverlayLoaded)
+		window.parent.sensorOverlayLoaded(window, overlayOptions)
+
 
 }
 
