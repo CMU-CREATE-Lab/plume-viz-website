@@ -4,7 +4,7 @@
   var util = new edaplotjs.Util();
   var timeline;
   var date_to_index;
-  var current_date = "2019-04-28"; // the default date
+  var current_date = "2020-11-25"; // the default date
   var current_year = current_date.split("-")[0];
   var widgets = new edaplotjs.Widgets();
   var $calendar_select;
@@ -82,6 +82,13 @@
           // Play the video
           util.handleVideoPromise(this, "play");
         });
+
+        // inform potential listeners of date change (like the sensor overlay)
+        if (window.plumeVizDateChangeListeners)
+          for (var listener of window.plumeVizDateChangeListeners) {
+            listener(metadata.date)
+          }
+
         $vid.prop("src", metadata["url"]);
         util.handleVideoPromise($vid.get(0), "load"); // load to reset video promise
         var updated_query_url = getShareQuery(metadata["date"])
