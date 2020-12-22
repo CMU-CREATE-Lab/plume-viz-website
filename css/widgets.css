@@ -488,6 +488,11 @@
   outline: none;
 }
 
+.ui-accordion-header-collapsed {
+  width: 90px !important;
+  float: right;
+}
+
 .custom-legend .legend-title .ui-accordion-header-icon {
   float: right;
   margin-top: 1px;

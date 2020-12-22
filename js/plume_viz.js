@@ -7,7 +7,6 @@
   var current_date = "2019-04-28"; // the default date
   var current_year = current_date.split("-")[0];
   var widgets = new edaplotjs.Widgets();
-  var $calendar_dialog;
   var $calendar_select;
   var $vid;
   var plume_viz_data;
@@ -47,22 +46,10 @@
   }
 
   function initCalendarBtn() {
-    // Create the calendar dialog
-    $calendar_dialog = widgets.createCustomDialog({
-      selector: "#calendar-dialog",
-      full_width_button: true,
-      show_cancel_btn: false
-    });
-
-    // Add event to the calendar button
-    $("#calendar-btn").on("click", function () {
-      $calendar_dialog.dialog("open");
-    });
+    $calendar_select = $("#calendar");;
 
     // Add event to the calendar select
-    $calendar_select = $("#calendar");
     $calendar_select.on("change", function () {
-      $calendar_dialog.dialog("close");
       var $selected = $calendar_select.find(":selected");
       var selected_value = $selected.val();
       if (selected_value != -1 && selected_value != current_year) {
@@ -72,12 +59,13 @@
       }
       // Have selector go back to showing default option
       $(this).prop("selectedIndex", 0);
+
     });
   }
 
   function drawCalendar(year_list) {
     $calendar_select.empty();
-    $calendar_select.append($('<option selected value="-1">Select...</option>'));
+    $calendar_select.append($('<option selected value="-1">Year</option>'));
     for (var i = year_list.length - 1; i >= 0; i--) {
       var year = year_list[i];
       $calendar_select.append($('<option value="' + year + '">' + year + '</option>'));
@@ -136,7 +124,7 @@
     $vid = $("#video-viewer");
     util.addVideoClearEvent();
     widgets.setCustomLegend($("#legend"));
-    if ($(window).width() < 400) {
+    if ($(window).width() < 450) {
       $( ".custom-legend" ).accordion( "option", "active", false );
     }
 
@@ -167,11 +155,11 @@
         }
       }
       createTimeline(plume_viz_data[current_year]);
-      timeline.selectBlockByIndex(date_to_index[current_year][current_date]);
-      // Set the calendar button eventss
+      // Set the calendar button events
       initCalendarBtn();
       // Fill in the dropdown menu in the calendar dropdown
       drawCalendar(available_years);
+      timeline.selectBlockByIndex(date_to_index[current_year][current_date]);
     });
   }
 
