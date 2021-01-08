@@ -16,6 +16,14 @@
 
   window.sensorOverlayLoaded = (srcWindow, sensorOverlayOptions) => {
 
+    // just add the default option
+    let sensorOverlaySelector = srcWindow.document.getElementById("sensorOverlaySelector")
+    if (sensorOverlaySelector) {
+      let optionElement = srcWindow.document.createElement("option")
+      optionElement.text = "VOC Sensors"
+      sensorOverlaySelector.add(optionElement)
+    }
+
     // change options here
     sensorOverlayOptions.sensorSearchText = "tVOC"
     sensorOverlayOptions.colorMapAmplificationFactor = 1.0
