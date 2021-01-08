@@ -79,7 +79,10 @@ function stopPollingVideoTime(video) {
 }
 
 function getCurrentTimeRange() {
-	return {min: currentVideoDate.getTime()/1000.0, max: currentVideoDate.getTime()/1000.0 + 24*60*60}
+	if (currentVideoDate)
+		return {min: currentVideoDate.getTime()/1000.0, max: currentVideoDate.getTime()/1000.0 + 24*60*60}
+	else
+		return undefined
 }
 
 
@@ -118,7 +121,7 @@ function populateColorizers() {
 		let feed = esdr.feeds.get(feedId)
 		// exclude feed names that any contain negative term
 		let isExcludedByTerm = overlayOptions.sensorSearchNegativeTerms.some(term => feed.name.indexOf(term) > -1)
-		let isExcludedByTime = (parseFloat(feed.maxTimeSecs || 0.0) <= currentTimeRange.max) || (parseFloat(feed.minTimeSecs || 0.0) >= currentTimeRange.min)
+		let isExcludedByTime = currentTimeRange && ((parseFloat(feed.maxTimeSecs || 0.0) <= currentTimeRange.max) || (parseFloat(feed.minTimeSecs || 0.0) >= currentTimeRange.min))
 
 		if (isExcludedByTerm || isExcludedByTime || !channels)
 			continue
