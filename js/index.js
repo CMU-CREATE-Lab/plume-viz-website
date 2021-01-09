@@ -16,30 +16,66 @@
 
   window.sensorOverlayLoaded = (srcWindow, sensorOverlayOptions) => {
 
-    // just add the default option
-    let sensorOverlaySelector = srcWindow.document.getElementById("sensorOverlaySelector")
-    if (sensorOverlaySelector) {
-      let optionElement = srcWindow.document.createElement("option")
-      optionElement.text = "VOC Sensors"
-      sensorOverlaySelector.add(optionElement)
-    }
-
     // change options here
     sensorOverlayOptions.sensorSearchText = "tVOC"
     sensorOverlayOptions.colorMapAmplificationFactor = 1.0
-    sensorOverlayOptions.colorizerLookupFunctionFactory = (feedId, channelName) => {
-      return (value) => {
-          if (value === undefined) {
-        return [0,0,0,0]; // transparent
-          } else if (value < 350.0) {
-        return [0.0, 0.7, 0.0, 1.0]; // green
-          } else if (value < 1000) {  
-        return [1.0, 1.0, 0.0, 1.0]; // yellow
-          } else {
-        return [1.0, 0.0, 0.0, 1.0]; // red
-          }
+    sensorOverlayOptions.markerSize =  15.0
+ 
+    // populate selector options
+    let sensorOverlaySelector = srcWindow.document.getElementById("sensorOverlaySelector")
+    if (sensorOverlaySelector) {
+
+      let sensorOverlaySelectorOptions = {
+        "AirViz tVOC Sensors": {
+          sensorSearchText: "tVOC",
+        },
+        "All PM2.5 Sensors": {
+          sensorSearchText: "PM2",
+          sensorSearchNegativeTerms: [],
+          markerSize: 10.0,
+        },
+        "ACHD PM2.5 Sensors": {
+          sensorSearchText: "ACHD PM2",
+          sensorSearchNegativeTerms: ["RAMP"],
+        },
+        "RAMP PM2.5 Sensors": {
+          sensorSearchText: "RAMP PM2",
+          sensorSearchNegativeTerms: [],
+        },
+        "PurpleAir PM2.5 Sensors": {
+          sensorSearchText: "Purple PM2",
+          markerSize: 10.0,
+        },
+        "ACHD SO2 Sensors": {
+          sensorSearchText: "ACHD SO2",
+          sensorSearchNegativeTerms: ["RAMP"],
+        },
+        "RAMP SO2 Sensors": {
+          sensorSearchText: "RAMP SO2",
+          sensorSearchNegativeTerms: [],
+        },
       }
+
+      // populate UI element
+      for (let name in sensorOverlaySelectorOptions) {
+        // set default values for unspecified fields from sensorOverlayOptions
+        let option = sensorOverlaySelectorOptions[name]
+        option = Object.assign({}, sensorOverlayOptions, option)
+        sensorOverlaySelectorOptions[name] = option
+
+        // create option element
+        let optionElement = srcWindow.document.createElement("option")
+        optionElement.text = name
+        sensorOverlaySelector.add(optionElement)
+      }
+
+      // populate sensor selector
+      sensorOverlaySelector.addEventListener("change", (event) => {
+        srcWindow.sensorOverlaySetOptions(sensorOverlaySelectorOptions[event.target.value])
+      })
+
     }
+
 
     // dispatch back to overlay
     srcWindow.sensorOverlaySetOptions(sensorOverlayOptions)

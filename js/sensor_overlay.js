@@ -18,6 +18,7 @@ let feedMarkerColorizers = new Map()
 let overlayOptions = {
 	sensorSearchText: "ACHD SO2",
 	colorMapAmplificationFactor: 5.0,
+	markerSize: 15.0,
 	// filter out the RAMPS sensors, as their SO2 is unreliable
 	sensorSearchNegativeTerms: ["RAMP"],
 	allowedSensorChannelNames: new Set(["SO2", "SO2_PPM", "SO2_PPB", "tvoc", "tVOC_internal_0", "PM25_UG_M3", "PM25T_UG_M3", "PM2_5", "pm_sensor_voltage"]),
@@ -137,12 +138,21 @@ function populateColorizers() {
 
 }
 
+function resetDataSource(feedIds) {
+	feedIds = feedIds || esdr.feeds.keys()
+
+	let markerSize = overlayOptions.markerSize || 15.0
+
+  mapOverlay.setDataSource(esdr, {rejectedFeeds: new Set(feedIds), markerSize: markerSize})
+
+}
+
 
 function esdrFeedsReceived(feedIds, progress) {
 	// console.log("esdrFeedsReceived", progress)
 
-  mapOverlay.setDataSource(esdr, {rejectedFeeds: new Set(feedIds)})
-  // mapOverlay.setDataSource(esdr)
+
+  resetDataSource(feedIds)
 
 	if (progress.current == progress.total)
 		allEsdrFeedsReceived = true
@@ -272,6 +282,7 @@ function initSensorOverlay() {
 	mapOverlay.colors.rejectedFeedStrokeColor = [0.0, 0.0, 0.0, 0.0]
 	mapOverlay.colors.selectedFeedStrokeColor = [0.0, 0.0, 0.0, 0.0]
 	mapOverlay.colors.activeFeedStrokeColor = [0.0, 0.0, 0.0, 0.0]
+	mapOverlay.markerScreenScale = 600.0
 
 	esdr.searchQuery = {text: overlayOptions.sensorSearchText}
 
@@ -295,12 +306,15 @@ function initSensorOverlay() {
 		feedMarkerColorizers = new Map()
 		overlayOptions = sensorOverlayOptions
 
+		// reset dataSource to be able to change marker size
+		resetDataSource()
+
 		esdr.searchQuery = {text: overlayOptions.sensorSearchText}
 
 	}
 
-	if (window.parent.sensorOverlayLoaded)
-		window.parent.sensorOverlayLoaded(window, overlayOptions)
+  if (window.parent.sensorOverlayLoaded)
+    window.parent.sensorOverlayLoaded(window, overlayOptions)
 
 
 }
