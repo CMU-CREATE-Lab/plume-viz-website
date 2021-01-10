@@ -101,6 +101,10 @@
           sensorSearchNegativeTerms: [],
           colorizerLookupFunctionFactory: (value) => undefined,
         },
+        "No Sensors": {
+          sensorSearchText: "RAMP",
+          sensorSearchNegativeTerms: ["RAMP"],
+        },
         // "AirViz tVOC Sensors (gradient)": {
         //   sensorSearchText: "tVOC",
         //   colorizerLookupFunctionFactory: (value) => undefined,
