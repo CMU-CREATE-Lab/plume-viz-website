@@ -14,10 +14,12 @@ let esdr = undefined
 let allEsdrFeedsReceived = false
 let feedSearchResults = undefined
 let feedMarkerColorizers = new Map()
+let feedMarkerSizers = new Map()
 
 let overlayOptions = {
 	sensorSearchText: "ACHD SO2",
-	colorMapAmplificationFactor: 5.0,
+	colorMapAmplificationFactor: 1.0,
+	sizerLookupFunctionFactory: () => (() => 15.0),
 	markerSize: 15.0,
 	// filter out the RAMPS sensors, as their SO2 is unreliable
 	sensorSearchNegativeTerms: ["RAMP"],
@@ -33,6 +35,9 @@ function setCurrentVideoTime(videoTime) {
 
 	for (let [feedId, colorizer] of feedMarkerColorizers) {
 		colorizer.setCurrentTime(currentVideoEpochTime)
+	}
+	for (let [feedId, sizer] of feedMarkerSizers) {
+		sizer.evaluator.setCurrentTime(currentVideoEpochTime)
 	}
 
 }
@@ -94,13 +99,23 @@ function colorizeFeedOnMap(feedId, channelName) {
 
   mapOverlay.setColorizerForFeed(feedId, channelName, colorizer, colorLookupFunction, overlayOptions.colorMapAmplificationFactor)
 
+  let sizer = {
+  	sizeForValue: overlayOptions.sizerLookupFunctionFactory(feedId, channelName),
+  	evaluator: new TiledDataEvaluator(esdr.dataSourceForChannel(feedId, channelName)),
+  }
+
+  mapOverlay.setSizerForFeed(feedId, channelName, sizer)
+
   feedMarkerColorizers.set(feedId, colorizer)
+  feedMarkerSizers.set(feedId, sizer)
 
   if (currentVideoDate) {
     colorizer.setCurrentRange(getCurrentTimeRange())
+    sizer.evaluator.setCurrentRange(getCurrentTimeRange())
 
     if (currentVideoEpochTime) {
     	colorizer.setCurrentTime(currentVideoEpochTime)
+    	sizer.evaluator.setCurrentTime(currentVideoEpochTime)
     }
   }
 
@@ -110,6 +125,9 @@ function colorizeFeedOnMap(feedId, channelName) {
 function clearColorizers() {
 	for (let [feedId, colorizer] of feedMarkerColorizers) {
 	  mapOverlay.setColorizerForFeed(feedId, undefined, undefined)		
+	}
+	for (let [feedId, sizer] of feedMarkerSizers) {
+	  mapOverlay.setSizerForFeed(feedId, undefined, undefined)		
 	}
 }
 
@@ -304,6 +322,7 @@ function initSensorOverlay() {
 	window.sensorOverlaySetOptions = (sensorOverlayOptions) => {
 		clearColorizers()
 		feedMarkerColorizers = new Map()
+		feedMarkerSizers = new Map()
 		overlayOptions = sensorOverlayOptions
 
 		// reset dataSource to be able to change marker size

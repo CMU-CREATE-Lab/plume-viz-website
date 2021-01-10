@@ -27,6 +27,21 @@
     sensorOverlayOptions.sensorSearchText = "tVOC"
     sensorOverlayOptions.colorMapAmplificationFactor = 1.0
     sensorOverlayOptions.markerSize =  15.0
+    sensorOverlayOptions.sizerLookupFunctionFactory = (feedId, channelName) => {
+      if (channelName.indexOf("tVOC") > -1) {
+        return (value) => {
+          return Math.min(Math.max(Math.sqrt(value/10.0), 7.5), 25.0)
+        }
+      }
+      if (channelName.indexOf("PM2") > -1) {
+        return (value) => {
+          return Math.min(Math.max(Math.sqrt(value), 5.0), 25.0)
+        }
+      }
+      else {
+        return (value) => sensorOverlayOptions.markerSize
+      }
+    }
     // sensorOverlayOptions.colorizerLookupFunctionFactory = (feedId, channelName) => {
     //   if (channelName.indexOf("tVOC") > -1) {
     //     return (value) => {

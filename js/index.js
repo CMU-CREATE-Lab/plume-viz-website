@@ -19,7 +19,7 @@
     // change options here
     sensorOverlayOptions.sensorSearchText = "tVOC"
     sensorOverlayOptions.colorMapAmplificationFactor = 1.0
-    sensorOverlayOptions.markerSize =  15.0
+    sensorOverlayOptions.sizerLookupFunctionFactory = () => (() => 15.0)
  
     // populate selector options
     let sensorOverlaySelector = srcWindow.document.getElementById("sensorOverlaySelector")
@@ -32,7 +32,7 @@
         "All PM2.5 Sensors": {
           sensorSearchText: "PM2",
           sensorSearchNegativeTerms: [],
-          markerSize: 10.0,
+          sizerLookupFunctionFactory: () => (() => 10.0),
         },
         "ACHD PM2.5 Sensors": {
           sensorSearchText: "ACHD PM2",
@@ -44,7 +44,7 @@
         },
         "PurpleAir PM2.5 Sensors": {
           sensorSearchText: "Purple PM2",
-          markerSize: 10.0,
+          sizerLookupFunctionFactory: () => (() => 10.0),
         },
         "ACHD SO2 Sensors": {
           sensorSearchText: "ACHD SO2",
