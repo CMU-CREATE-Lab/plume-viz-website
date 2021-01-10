@@ -30,12 +30,22 @@
     sensorOverlayOptions.sizerLookupFunctionFactory = (feedId, channelName) => {
       if (channelName.indexOf("tVOC") > -1) {
         return (value) => {
-          return Math.min(Math.max(Math.sqrt(value/10.0), 7.5), 25.0)
+          return Math.min(Math.max(Math.sqrt(value/10.0)+5.0, 5.0), 25.0)
         }
       }
-      if (channelName.indexOf("PM2") > -1) {
+      else if (channelName.indexOf("PM2") > -1) {
         return (value) => {
-          return Math.min(Math.max(Math.sqrt(value), 5.0), 25.0)
+          return Math.min(Math.max(Math.sqrt(value)+3.0, 3.0), 25.0)
+        }
+      }
+      else if (channelName.indexOf("SO2_PPM") > -1) {
+        return (value) => {
+          return Math.min(Math.max(Math.sqrt(1000.0*value/2.0)+5.0, 5.0), 25.0)
+        }
+      }
+      else if (channelName.indexOf("SO2") > -1) {
+        return (value) => {
+          return Math.min(Math.max(Math.sqrt(value/2.0)+5.0, 5.0), 25.0)
         }
       }
       else {
