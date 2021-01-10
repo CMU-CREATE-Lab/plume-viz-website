@@ -19,8 +19,48 @@
     // change options here
     sensorOverlayOptions.sensorSearchText = "tVOC"
     sensorOverlayOptions.colorMapAmplificationFactor = 1.0
-    sensorOverlayOptions.sizerLookupFunctionFactory = () => (() => 15.0)
- 
+    sensorOverlayOptions.markerSize =  15.0
+    sensorOverlayOptions.sizerLookupFunctionFactory = (feedId, channelName) => {
+      if (channelName.indexOf("tVOC") > -1) {
+        return (value) => {
+          return Math.min(Math.max(Math.sqrt(value/10.0)+5.0, 5.0), 25.0)
+        }
+      }
+      else if (channelName.indexOf("PM2") > -1) {
+        return (value) => {
+          return Math.min(Math.max(Math.sqrt(value)+3.0, 3.0), 25.0)
+        }
+      }
+      else if (channelName.indexOf("SO2_PPM") > -1) {
+        return (value) => {
+          return Math.min(Math.max(Math.sqrt(1000.0*value/2.0)+5.0, 5.0), 25.0)
+        }
+      }
+      else if (channelName.indexOf("SO2") > -1) {
+        return (value) => {
+          return Math.min(Math.max(Math.sqrt(value/2.0)+5.0, 5.0), 25.0)
+        }
+      }
+      else {
+        return (value) => sensorOverlayOptions.markerSize
+      }
+    }
+    // sensorOverlayOptions.colorizerLookupFunctionFactory = (feedId, channelName) => {
+    //   if (channelName.indexOf("tVOC") > -1) {
+    //     return (value) => {
+    //       if (value === undefined) {
+    //         return [0,0,0,0]; // transparent
+    //       } else if (value < 350.0) {
+    //         return [0.0, 0.7, 0.0, 1.0]; // green
+    //       } else if (value < 1000) {  
+    //         return [1.0, 1.0, 0.0, 1.0]; // yellow
+    //       } else {
+    //         return [1.0, 0.0, 0.0, 1.0]; // red
+    //       }
+    //     }
+    //   }
+    // }
+
     // populate selector options
     let sensorOverlaySelector = srcWindow.document.getElementById("sensorOverlaySelector")
     if (sensorOverlaySelector) {
@@ -28,32 +68,48 @@
       let sensorOverlaySelectorOptions = {
         "AirViz tVOC Sensors": {
           sensorSearchText: "tVOC",
+          colorizerLookupFunctionFactory: (value) => undefined,
         },
         "All PM2.5 Sensors": {
           sensorSearchText: "PM2",
           sensorSearchNegativeTerms: [],
-          sizerLookupFunctionFactory: () => (() => 10.0),
+          markerSize: 10.0,
+          colorizerLookupFunctionFactory: (value) => undefined,
         },
         "ACHD PM2.5 Sensors": {
           sensorSearchText: "ACHD PM2",
           sensorSearchNegativeTerms: ["RAMP"],
+          colorizerLookupFunctionFactory: (value) => undefined,
         },
         "RAMP PM2.5 Sensors": {
           sensorSearchText: "RAMP PM2",
           sensorSearchNegativeTerms: [],
+          colorizerLookupFunctionFactory: (value) => undefined,
         },
         "PurpleAir PM2.5 Sensors": {
           sensorSearchText: "Purple PM2",
-          sizerLookupFunctionFactory: () => (() => 10.0),
+          colorizerLookupFunctionFactory: (value) => undefined,
+          markerSize: 10.0,
         },
         "ACHD SO2 Sensors": {
           sensorSearchText: "ACHD SO2",
           sensorSearchNegativeTerms: ["RAMP"],
+          colorizerLookupFunctionFactory: (value) => undefined,
         },
         "RAMP SO2 Sensors": {
           sensorSearchText: "RAMP SO2",
           sensorSearchNegativeTerms: [],
+          colorizerLookupFunctionFactory: (value) => undefined,
         },
+        // "AirViz tVOC Sensors (gradient)": {
+        //   sensorSearchText: "tVOC",
+        //   colorizerLookupFunctionFactory: (value) => undefined,
+        // },
+        // "All PM2.5 Sensors (gradient)": {
+        //   sensorSearchText: "PM2",
+        //   sensorSearchNegativeTerms: [],
+        //   colorizerLookupFunctionFactory: (value) => undefined,
+        // },
       }
 
       // populate UI element
