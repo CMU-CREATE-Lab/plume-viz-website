@@ -33,7 +33,7 @@
           return Math.min(Math.max(Math.sqrt(value/10.0)+5.0, 5.0), 25.0)
         }
       }
-      else if (channelName.indexOf("PM2") > -1) {
+      else if ((channelName.indexOf("PM2") > -1) || (channelName.indexOf("PM025") > -1)) {
         return (value) => {
           return Math.min(Math.max(Math.sqrt(value)+3.0, 3.0), 25.0)
         }
@@ -78,7 +78,7 @@
           colorizerLookupFunctionFactory: (value) => undefined,
         },
         "All PM2.5 Sensors": {
-          sensorSearchText: "PM2",
+          sensorSearchText: "PM",
           sensorSearchNegativeTerms: [],
           markerSize: 10.0,
           colorizerLookupFunctionFactory: (value) => undefined,
@@ -89,8 +89,8 @@
           colorizerLookupFunctionFactory: (value) => undefined,
         },
         "RAMP PM2.5 Sensors": {
-          sensorSearchText: "RAMP PM2",
-          sensorSearchNegativeTerms: [],
+          sensorSearchText: "RAMP PM",
+          sensorSearchNegativeTerms: ["PurpleAir"],
           colorizerLookupFunctionFactory: (value) => undefined,
         },
         "PurpleAir PM2.5 Sensors": {
@@ -112,15 +112,6 @@
           sensorSearchText: "RAMP",
           sensorSearchNegativeTerms: ["RAMP"],
         },
-        // "AirViz tVOC Sensors (gradient)": {
-        //   sensorSearchText: "tVOC",
-        //   colorizerLookupFunctionFactory: (value) => undefined,
-        // },
-        // "All PM2.5 Sensors (gradient)": {
-        //   sensorSearchText: "PM2",
-        //   sensorSearchNegativeTerms: [],
-        //   colorizerLookupFunctionFactory: (value) => undefined,
-        // },
       }
 
       // populate UI element
