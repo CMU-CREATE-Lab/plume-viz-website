@@ -72,7 +72,7 @@
     position: absolute;
     right: 25px;
     top: 25px;
-    width: 220px;
+    width: 300px;
     margin: 0;
   }
 
@@ -81,7 +81,8 @@
   }
 
   .sensor-legend {
-    width: 30%;
+    width: 40%;
+    margin: 5px;
   }
 
   #calendar-btn {
@@ -119,6 +120,19 @@
     font-weight: bold;
   }
 
+  .legend-circle {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: -8px;
+  }
+
+  #legend-circle-container {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
 </style>
 
 <body>
@@ -132,7 +146,16 @@
       <div class="legend-scale">
         <ul class="legend-labels">
           <li><img class="smell-legend" src="img/smell_legend.png" style="vertical-align: middle;">Smell Reports</li>
-          <li><img class="sensor-legend" src="img/sensor_legend.png" style="vertical-align: middle;"><select name="sensors" id="sensorOverlaySelector" style="width: 120px; text-overflow: ellipsis; white-space: nowrap;"></select></li>
+          <li>
+            <div id="legend-circle-container">
+            <div class="legend-circle" style="background:#00b200"></div>
+            <div class="legend-circle" style="background:#ffff00"></div>
+            <div class="legend-circle" style="background:#ff9900"></div>
+            <div class="legend-circle" style="background:#ff0000"></div>
+            <div class="legend-circle" style="background:#b7269b"></div>
+            <div class="legend-circle" style="background:#88001b"></div>
+            </div>
+            <select name="sensors" id="sensorOverlaySelector" style="width: 170px; text-overflow: ellipsis; white-space: nowrap;"></select></li>
           <li><span style="background:#b05ed6;"></span>Clairton Coke Works</li>
           <li><span style="background:#dae65f;"></span>Irvin Works</li>
           <li><span style="background:#6aeec1;"></span>Edgar Thompson Works</li>
