@@ -23,7 +23,8 @@ let overlayOptions = {
 	markerSize: 15.0,
 	// filter out the RAMPS sensors, as their SO2 is unreliable
 	sensorSearchNegativeTerms: ["RAMP"],
-	allowedSensorChannelNames: new Set(["SO2", "SO2_PPM", "SO2_PPB", "tvoc", "tVOC_internal_0", "PM25_UG_M3", "PM25T_UG_M3", "PM2_5", "PM025", "pm_sensor_voltage"]),
+	// "pm_sensor_voltage" removed
+	allowedSensorChannelNames: new Set(["SO2", "SO2_PPM", "SO2_PPB", "tvoc", "tVOC_internal_0", "PM25_UG_M3", "PM2_5", "PM025"]),
 	colorizerLookupFunctionFactory: (feedId, channelName) => undefined,
 }
 
