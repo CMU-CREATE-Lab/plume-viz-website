@@ -66,42 +66,43 @@
     if (sensorOverlaySelector) {
 
       let sensorOverlaySelectorOptions = {
-        "AirViz tVOC Sensors": {
+        "AirViz tVOC Monitors": {
           sensorSearchText: "tVOC",
           colorizerLookupFunctionFactory: (value) => undefined,
         },
-        "All PM2.5 Sensors": {
+
+        "All PM2.5 Monitors": {
           sensorSearchText: "PM",
           sensorSearchNegativeTerms: [],
           markerSize: 10.0,
           colorizerLookupFunctionFactory: (value) => undefined,
         },
-        "ACHD PM2.5 Sensors": {
+        "ACHD PM2.5 Monitors": {
           sensorSearchText: "ACHD PM2",
           sensorSearchNegativeTerms: ["RAMP"],
           colorizerLookupFunctionFactory: (value) => undefined,
         },
-        "RAMP PM2.5 Sensors": {
+        "RAMP PM2.5 Monitors": {
           sensorSearchText: "RAMP PM",
           sensorSearchNegativeTerms: ["PurpleAir"],
           colorizerLookupFunctionFactory: (value) => undefined,
         },
-        "PurpleAir PM2.5 Sensors": {
+        "PurpleAir PM2.5 Monitors": {
           sensorSearchText: "Purple PM2",
           colorizerLookupFunctionFactory: (value) => undefined,
           markerSize: 10.0,
         },
-        "ACHD SO2 Sensors": {
+        "ACHD SO2 Monitors": {
           sensorSearchText: "ACHD SO2",
           sensorSearchNegativeTerms: ["RAMP"],
           colorizerLookupFunctionFactory: (value) => undefined,
         },
-        "RAMP SO2 Sensors": {
+        "RAMP SO2 Monitors": {
           sensorSearchText: "RAMP SO2",
           sensorSearchNegativeTerms: [],
           colorizerLookupFunctionFactory: (value) => undefined,
         },
-        "No Sensors": {
+        "No Monitors": {
           sensorSearchText: "RAMP",
           sensorSearchNegativeTerms: ["RAMP"],
         },
