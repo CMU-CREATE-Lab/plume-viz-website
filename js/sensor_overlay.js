@@ -2,6 +2,7 @@
 
 import {StaticMapOverlay} from "./explore/staticMapOverlay.js"
 import {ESDR, TiledDataEvaluator} from "./explore/esdrFeeds.js"
+import {ImagePeeker} from "./explore/imagePeeker.js"
 
 
 
@@ -92,11 +93,46 @@ function getCurrentTimeRange() {
 		return undefined
 }
 
+function colorMapForChannel(feedId, channelName) {
+	let colorMap = undefined
+
+		if (channelName.indexOf("SO2") == 0) {
+			// Randy's PurpleAir approx color scale for SO2
+			let so2max = 8*12 // 8 PPB should be red in this color scale
+			if (channelName.indexOf("SO2_PPM") == 0) 
+				so2max *= 0.001
+			return {texture: "img/purpleair-0-to-1200-colormap.png", range: {min: 0.0, max: so2max}}
+		}
+
+
+	if (!colorMap)
+		colorMap = ESDR.sparklineColorMap(feedId, channelName)
+
+	return colorMap
+}
+
+function colorMapLookup(feedId, channelName) {
+	let colorMap = colorMapForChannel(feedId, channelName)
+
+	if (!colorMap)
+		return (value) => undefined
+
+	let imagePeeker = colorMap.texture ? new ImagePeeker(colorMap.texture) : undefined
+
+	if (imagePeeker)
+		return (value) => imagePeeker.colorMapLookup(value, colorMap.range)
+	else
+		return (value) => undefined
+}
+
 
 function colorizeFeedOnMap(feedId, channelName) {
   let colorizer = new TiledDataEvaluator(esdr.dataSourceForChannel(feedId, channelName))
 
   let colorLookupFunction = overlayOptions.colorizerLookupFunctionFactory(feedId, channelName)
+
+  if (!colorLookupFunction)
+  	colorLookupFunction = colorMapLookup(feedId, channelName)
 
   mapOverlay.setColorizerForFeed(feedId, channelName, colorizer, colorLookupFunction, overlayOptions.colorMapAmplificationFactor)
 
@@ -156,6 +192,7 @@ function populateColorizers() {
 	}
 
 }
+
 
 function resetDataSource(feedIds) {
 	feedIds = feedIds || esdr.feeds.keys()
