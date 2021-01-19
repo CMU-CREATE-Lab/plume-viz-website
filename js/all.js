@@ -40,12 +40,12 @@
       }
       else if (channelName.indexOf("SO2_PPM") > -1) {
         return (value) => {
-          return Math.min(Math.max(Math.sqrt(1000.0*value/2.0)+5.0, 5.0), 25.0)
+          return Math.min(Math.max(Math.sqrt(1000.0*value*10.0)+5.0, 5.0), 25.0)
         }
       }
       else if (channelName.indexOf("SO2") > -1) {
         return (value) => {
-          return Math.min(Math.max(Math.sqrt(value/2.0)+5.0, 5.0), 25.0)
+          return Math.min(Math.max(Math.sqrt(value*10.0)+5.0, 5.0), 25.0)
         }
       }
       else {
