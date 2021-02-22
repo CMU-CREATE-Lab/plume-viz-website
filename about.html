@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Plume PGH</title>
+    <title>Plume Pittsburgh</title>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" media="screen" rel="stylesheet" type="text/css" />
@@ -56,7 +56,7 @@
               While no weather model is perfect, these modeled pollution paths show striking correspondence with Smell Pittsburgh reports and total-VOC air monitors. The models show how emissions maintain significant concentration in the air even miles from a source, especially on days when the ground is colder than the upper level atmosphere, causing pollution to concentrate close to the ground in a common condition known as an inversion. The greater Pittsburgh area experiences an average of around 157 inversion days per year.
             </p>
             <p class="text">
-              Four of the largest pollution sources in the greater Pittsburgh area are represented in this model, although there are a number of smaller pollution sources that may also correlate with smell reports and VOC sensor responses. 
+              Our model shows the four largest emitters of SO2 and other sulfur oxides in Allegheny County, which correlates strongly with smell reports and also health impacts.  See <a target="_tab" href="https://docs.google.com/spreadsheets/d/1QpDqGqsJpZUj4jycMfw221idejA7N-kN/edit#gid=2034973782">self-reported  air emissions inventory</a> for these four sources.  There are a number of smaller pollution sources not shown that can also correlate with smell reports and monitor values and impact health. 
             </p>
             <p class="text">
               As pollution rises, dots fade away as the ground-level impact reduces. This model shows only the variability from weather conditions and does not consider individual sources changing pollutant outputs over time.
@@ -67,23 +67,50 @@
         <ol style="color:white">
           <li>
             <p class="text-small-margin text-italic">
-              Smell Pittsburgh: <a href="http://smellpittsburgh.org">smellpittsburgh.org</a>
+              Smell Pittsburgh: <a target="_tab" href="http://smellpittsburgh.org">smellpittsburgh.org</a>
             </p>
           </li>
           <li>
             <p class="text-small-margin text-italic">
-              NOAA High-Resolution Rapid Refresh (HRRR): <a href="https://rapidrefresh.noaa.gov/hrrr/">rapidrefresh.noaa.gov</a>
+              NOAA High-Resolution Rapid Refresh (HRRR): <a target="_tab" href="https://rapidrefresh.noaa.gov/hrrr/">rapidrefresh.noaa.gov</a>
             </p>
           </li>
           <li>
             <p class="text-small-margin text-italic">
-              Environmental Sensor Data Repository (ESDR): <a href="http://environmentaldata.org">environmentaldata.org</a>
+              Environmental Sensor Data Repository (ESDR): <a target="_tab" href="http://environmentaldata.org">environmentaldata.org</a>
             </p>
           </li>
           <li>
             <p class="text-small-margin text-italic">
             Allegheny County Health Department Inversion Report 2019: <a href="https://www.alleghenycounty.us/uploadedFiles/Allegheny_Home/Health_Department/Programs/Air_Quality/AnnualSfcTempInversionAnalysis-2019.pdf">alleghenycounty.us</a>
           </p>
+          </li>
+        </ol>
+
+        <h2>About the SO2 Monitors</h2>
+        <p class="text">
+          In the greater Pittsburgh area, SO2 is a commonly measured pollutant associated with adverse health outcomes.
+        </p>
+        <p class="text">
+          We know this from health impacts on residents living close to Shenango coke works in the years before and after its shutdown in 2016.  After shutdown, emergency room visits for asthma and COPD dropped 38%.  Cardiovascular emergencies dropped 27%[1][2].   And pediatric asthma studied in a local school showed a 25% reduction in physician-diagnosed asthma the year after shutdown[3].
+        </p>
+        <p class="text">
+          These reductions in health impact were observed together with a <a target="_tab" href="https://environmentaldata.org/#channels=1.SO2_PPM&time=1321801526.387,1627389513.580&plotHeight=5.000&plotAreaHeight=40.000&showFilters=true&showSettings=true&showResults=true&center=40.701157744642764,-80.06189166539133&zoom=7&search=avalon+so2">10-fold reduction in SO2</a>, from an average of 1.5 PPB from Jan 2014-Dec 2015, down to an average of 0.15 PPB from July 2016-Jun 2018.
+        </p>
+        <p class="text">
+          We therefore use the following color scale when showing SO2 measurements:
+        </p>
+          <img src="so2_colorscale_labelled.png" style="width: 500px; margin-left: calc(50% - 250px);"></img>
+
+        </p>
+        <ol style="color:white">
+          <li>
+            Brink, Marshall, Hacker, Talbot.  Changes in emergency department visits for respiratory and cardiovascular disease after closure of a coking operation near Pittsburgh, PA, Journal of Air Pollution and Health, January 2020.
+            <a target="_tab" href="https://japh.tums.ac.ir/index.php/japh/article/view/216">https://japh.tums.ac.ir/index.php/japh/article/view/216</a>
+          </li>
+          <li>
+            Marusic, ER visits for asthma dropped 38% the year after one of Pittsburgh's biggest polluters shut down, Environmental Health News, May 8, 2018 
+            <a target="_tab" href="https://www.ehn.org/shenango-coke-works-closed-asthma-dropped-2566777141/particle-1">https://www.ehn.org/shenango-coke-works-closed-asthma-dropped-2566777141/particle-1</a>
           </li>
         </ol>
       </div>
