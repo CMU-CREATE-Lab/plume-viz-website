@@ -66,7 +66,11 @@
     if (sensorOverlaySelector) {
 
       let sensorOverlaySelectorOptions = {
-        "AirViz tVOC Monitors": {
+        "No Monitors": {
+          sensorSearchText: "RAMP",
+          sensorSearchNegativeTerms: ["RAMP"],
+        },
+	"AirViz tVOC Monitors": {
           sensorSearchText: "tVOC",
           colorizerLookupFunctionFactory: (value) => undefined,
         },
@@ -101,10 +105,6 @@
           sensorSearchText: "RAMP SO2",
           sensorSearchNegativeTerms: [],
           colorizerLookupFunctionFactory: (value) => undefined,
-        },
-        "No Monitors": {
-          sensorSearchText: "RAMP",
-          sensorSearchNegativeTerms: ["RAMP"],
         },
       }
 
