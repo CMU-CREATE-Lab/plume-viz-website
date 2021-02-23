@@ -61,52 +61,53 @@
     //   }
     // }
 
+    let sensorOverlaySelectorOptions = {
+      "No Monitors": {
+        sensorSearchText: "RAMP",
+        sensorSearchNegativeTerms: ["RAMP"],
+      },
+      "AirViz tVOC Monitors": {
+        sensorSearchText: "tVOC",
+        colorizerLookupFunctionFactory: (value) => undefined,
+      },
+
+      "All PM2.5 Monitors": {
+        sensorSearchText: "PM",
+        sensorSearchNegativeTerms: [],
+        markerSize: 10.0,
+        colorizerLookupFunctionFactory: (value) => undefined,
+      },
+      "ACHD PM2.5 Monitors": {
+        sensorSearchText: "ACHD PM",
+        sensorSearchNegativeTerms: ["RAMP"],
+        colorizerLookupFunctionFactory: (value) => undefined,
+      },
+      "RAMP PM2.5 Monitors": {
+        sensorSearchText: "RAMP PM",
+        sensorSearchNegativeTerms: ["PurpleAir"],
+        colorizerLookupFunctionFactory: (value) => undefined,
+      },
+      "PurpleAir PM2.5 Monitors": {
+        sensorSearchText: "Purple PM2",
+        colorizerLookupFunctionFactory: (value) => undefined,
+        markerSize: 10.0,
+      },
+      "ACHD SO2 Monitors": {
+        sensorSearchText: "ACHD SO2",
+        sensorSearchNegativeTerms: ["RAMP"],
+        colorizerLookupFunctionFactory: (value) => undefined,
+      },
+      "RAMP SO2 Monitors": {
+        sensorSearchText: "RAMP SO2",
+        sensorSearchNegativeTerms: [],
+        colorizerLookupFunctionFactory: (value) => undefined,
+      },
+    }
+
     // populate selector options
     let sensorOverlaySelector = srcWindow.document.getElementById("sensorOverlaySelector")
     if (sensorOverlaySelector) {
 
-      let sensorOverlaySelectorOptions = {
-        "No Monitors": {
-          sensorSearchText: "RAMP",
-          sensorSearchNegativeTerms: ["RAMP"],
-        },
-	"AirViz tVOC Monitors": {
-          sensorSearchText: "tVOC",
-          colorizerLookupFunctionFactory: (value) => undefined,
-        },
-
-        "All PM2.5 Monitors": {
-          sensorSearchText: "PM",
-          sensorSearchNegativeTerms: [],
-          markerSize: 10.0,
-          colorizerLookupFunctionFactory: (value) => undefined,
-        },
-        "ACHD PM2.5 Monitors": {
-          sensorSearchText: "ACHD PM2",
-          sensorSearchNegativeTerms: ["RAMP"],
-          colorizerLookupFunctionFactory: (value) => undefined,
-        },
-        "RAMP PM2.5 Monitors": {
-          sensorSearchText: "RAMP PM",
-          sensorSearchNegativeTerms: ["PurpleAir"],
-          colorizerLookupFunctionFactory: (value) => undefined,
-        },
-        "PurpleAir PM2.5 Monitors": {
-          sensorSearchText: "Purple PM2",
-          colorizerLookupFunctionFactory: (value) => undefined,
-          markerSize: 10.0,
-        },
-        "ACHD SO2 Monitors": {
-          sensorSearchText: "ACHD SO2",
-          sensorSearchNegativeTerms: ["RAMP"],
-          colorizerLookupFunctionFactory: (value) => undefined,
-        },
-        "RAMP SO2 Monitors": {
-          sensorSearchText: "RAMP SO2",
-          sensorSearchNegativeTerms: [],
-          colorizerLookupFunctionFactory: (value) => undefined,
-        },
-      }
 
       // populate UI element
       for (let name in sensorOverlaySelectorOptions) {
@@ -129,8 +130,12 @@
     }
 
 
-    // dispatch back to overlay
+    // dispatch options back to overlay
+    // as options are amended by setOptions(),
+    // first set the generic options for the scaling callbacks etc
     srcWindow.sensorOverlaySetOptions(sensorOverlayOptions)
+    // next pick the first overlay from option list
+    srcWindow.sensorOverlaySetOptions(sensorOverlaySelectorOptions["No Monitors"])
 
   }
 
