@@ -8,6 +8,7 @@
   var current_year = current_date.split("-")[0];
   var widgets = new edaplotjs.Widgets();
   var $calendar_select;
+  var $video_dialog;
   var $vid;
   var plume_viz_data;
 
@@ -43,6 +44,18 @@
       m[k] = m_k;
     }
     return m;
+  }
+
+  function initVideoDialog() {
+    $video_dialog = widgets.createCustomDialog({
+      selector: "#video-dialog",
+      show_cancel_btn: false
+    });
+
+    $(".ui-dialog-titlebar-close").on("click",function(){
+      $("#tutorial")[0].pause();
+      $video_dialog.remove();
+    })
   }
 
   function initCalendarBtn() {
@@ -130,6 +143,16 @@
   function init() {
     $vid = $("#video-viewer");
     util.addVideoClearEvent();
+    if(localStorage.getItem('popState') != 'shown'){
+      initVideoDialog();
+      $video_dialog.dialog("open");
+      $(" .custom-dialog-flat ").css('width','fit-content');
+      $(" .custom-dialog-flat ").css('width','-moz-fit-content')
+      localStorage.setItem('popState','shown')
+    }
+    else {
+      $("#tutorial")[0].remove();
+    }
     widgets.setCustomLegend($("#legend"));
     if ($(window).width() < 450) {
       $( ".custom-legend" ).accordion( "option", "active", false );

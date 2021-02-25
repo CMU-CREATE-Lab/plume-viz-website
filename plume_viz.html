@@ -133,12 +133,34 @@
     margin-right: 10px;
   }
 
+  @media all and (orientation:portrait){
+    #tutorial {
+      width: 80vw;
+    }
+  }
+
+  @media all and (orientation:landscape){
+    #tutorial {
+      width: 70vw;
+    }
+  }
+
+  @media screen and (min-width: 1000px) {
+    #tutorial {
+      width: 55vw;
+    }
+
+    .custom-dialog-flat {
+      top: 5% !important;
+    }
+  }
+  
+
 </style>
 
 <body>
   <div id="timeline-container" class="noselect timeline-container"></div>
   <div id="calendar-btn" title="Calendar" class="custom-button-flat"><select id="calendar"></select></div>
-  
   <div id="video-container" class="noselect video-container">
     <video id="video-viewer" class="video-viewer" autoplay loop muted playsinline playsInline disableRemotePlayback controls></video>
     <div class="custom-legend noselect" id="legend">
@@ -165,6 +187,10 @@
       </div>
     </div>
   </div>
+  <div id="video-dialog">
+    <video id="tutorial" src="vid/tutorial.mp4" controls autoplay></video>
+  </div>
+  
 </body>
 
 </html>
