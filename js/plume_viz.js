@@ -78,10 +78,15 @@
 
   function drawCalendar(year_list) {
     $calendar_select.empty();
-    $calendar_select.append($('<option selected value="-1">Year</option>'));
+    $calendar_select.append($('<option value="-1">Year</option>'));
     for (var i = year_list.length - 1; i >= 0; i--) {
       var year = year_list[i];
-      $calendar_select.append($('<option value="' + year + '">' + year + '</option>'));
+      if(year === current_year) {
+        $calendar_select.append($('<option selected value="' + year + '">' + year + '</option>'));
+      }
+      else {
+        $calendar_select.append($('<option value="' + year + '">' + year + '</option>'));
+      }
     }
   }
 
