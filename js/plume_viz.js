@@ -4,7 +4,7 @@
   var util = new edaplotjs.Util();
   var timeline;
   var date_to_index;
-  var current_date = "2021-02-21"; // the default date
+  var current_date = "2021-03-21"; // the default date
   var current_year = current_date.split("-")[0];
   var widgets = new edaplotjs.Widgets();
   var $calendar_select;
@@ -70,8 +70,6 @@
         createTimeline(plume_viz_data[current_year]);
         timeline.selectFirstBlock();
       }
-      // Have selector go back to showing default option
-      $(this).prop("selectedIndex", 0);
 
     });
   }
