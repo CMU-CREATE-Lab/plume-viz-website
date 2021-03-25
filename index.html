@@ -2,6 +2,21 @@
 <html>
 
 <head>
+  <!-- see https://stackoverflow.com/questions/3733053/get-url-and-parameters-with-ssi -->
+  <!-- set default value for SSI variable "data" -->
+  <!--#set var="plume_date" value="2021-02-21" -->
+
+  <!-- get "pdate" value from URL -->
+  <!--#if expr="$QUERY_STRING = /\bdate=([a-zA-Z0-9\-]+)/" -->
+  <!--#set var="plume_date" value="$1" -->
+  <!--#endif -->
+
+  <!-- print the "date" value -->
+  <!-- #echo var="plume_date" -->
+  <meta property="og:date" content="<!--#echo var="plume_date" -->" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:title" content="Plume Pittsburgh" />
       <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-J0VNK08F1H"></script>
 <script>
