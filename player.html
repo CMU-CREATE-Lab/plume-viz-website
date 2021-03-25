@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<style type="text/css">
+video {
+   width:100%;
+   max-width:600px;
+   height:auto;
+}
+</style>
+
+  <!-- Using SSI to inject date into otherwise static HTML for the purposes of creating previews for social media sharing -->
+  <!-- see https://stackoverflow.com/questions/3733053/get-url-and-parameters-with-ssi -->
+  <!-- set default value for SSI variable "plume_date" (should be same as default date in js/plume_viz.js) -->
+  <!--#set var="plume_date" value="2021-03-21" -->
+
+  <!-- get "date" value from URL query string -->
+  <!-- see https://bz.apache.org/bugzilla/show_bug.cgi?id=57448 for why `&& $1 ...` is used to smuggle out the matching group-->
+  <!--#if expr="'%{QUERY_STRING}' =~ /date=([a-zA-Z0-9\-]+)/ && $1 =~ /(.*)/" -->
+  <!--#set var="plume_date" value="$0" -->
+  <!--#endif -->
+  <!-- set mp4 file name for video preview based on plume_date -->
+  <!--#if expr="v('plume_date') =~ /([a-zA-Z0-9]+)-([a-zA-Z0-9]+)-([a-zA-Z0-9]+)/ && '$1$2$3' =~ /(.*)/" -->
+  <!--#set var="plume_mp4" value="$0" -->
+  <!--#endif -->
+
+
+<video controls>
+  <source src="https://aircocalc-www.createlab.org/pardumps/plumeviz/video/<!--#echo var="plume_mp4" -->.mp4" type="video/mp4">
+Your browser does not support video
+</video>
+
+</body>
+</html>

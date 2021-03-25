@@ -110,6 +110,13 @@
         var updated_query_url = getShareQuery(metadata["date"])
         sendQueryStringToParent(updated_query_url);
         util.setShareUrl(updated_query_url);
+
+        // update tweet button
+        let canonicalLink = document.getElementById("canonicalLink")
+        canonicalLink.setAttribute("href", `https://staging.plumepgh.org/${updated_query_url}`)
+        // let tweetButton = document.getElementById("tweetButton")
+        // tweetButton.setAttribute("href", `https://twitter.com/intent/tweet?url=${encodeURIComponent(`staging.plumepgh.org/${updated_query_url}`)}`)
+
       },
       colorBin: [0, 16, 32, 46, 77, 183],
       colorRange: ["#ededed", "#dbdbdb", "#afafaf", "#848383", "#545454", "#000000"],
