@@ -85,6 +85,13 @@
     margin: 5px;
   }
 
+  #lab-logo {
+    height: 40px;
+    bottom: 10px;
+    left: 10px;
+    position: absolute;
+  }
+
   #calendar-btn {
     position: absolute;
     left: 0;
@@ -133,14 +140,37 @@
     margin-right: 10px;
   }
 
+  @media all and (orientation:portrait){
+    #tutorial {
+      width: 80vw;
+    }
+  }
+
+  @media all and (orientation:landscape){
+    #tutorial {
+      width: 70vw;
+    }
+  }
+
+  @media screen and (min-width: 1000px) {
+    #tutorial {
+      width: 55vw;
+    }
+
+    .custom-dialog-flat {
+      top: 5% !important;
+    }
+  }
+  
+
 </style>
 
 <body>
   <div id="timeline-container" class="noselect timeline-container"></div>
   <div id="calendar-btn" title="Calendar" class="custom-button-flat"><select id="calendar"></select></div>
-  
   <div id="video-container" class="noselect video-container">
     <video id="video-viewer" class="video-viewer" autoplay loop muted playsinline playsInline disableRemotePlayback controls></video>
+    <img id="lab-logo" src='img/CREATE_gray_logo.png'>
     <div class="custom-legend noselect" id="legend">
       <h3 class="legend-title">More info</h3>
       <div class="legend-scale">
@@ -158,13 +188,17 @@
             <select name="sensors" id="sensorOverlaySelector" style="width: 170px; text-overflow: ellipsis; white-space: nowrap;"></select></li>
           <li><span style="background:#b05ed6;"></span>Clairton Coke Works</li>
           <li><span style="background:#FAFF63;"></span>Irvin Works</li>
-          <li><span style="background:#6aeec1;"></span>Edgar Thompson Works</li>
+          <li><span style="background:#6aeec1;"></span>Edgar Thomson Works</li>
           <li><span style="background:#ec8a27;"></span>Cheswick Generating Station</li>
           <li><a target="_top" href="about.html">About the model and data</a></li>
         </ul>
       </div>
     </div>
   </div>
+  <div id="video-dialog">
+    <video id="tutorial" src="vid/tutorial.mp4" controls autoplay muted></video>
+  </div>
+  
 </body>
 
 </html>

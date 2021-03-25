@@ -4,10 +4,11 @@
   var util = new edaplotjs.Util();
   var timeline;
   var date_to_index;
-  var current_date = "2021-02-21"; // the default date
+  var current_date = "2021-03-21"; // the default date
   var current_year = current_date.split("-")[0];
   var widgets = new edaplotjs.Widgets();
   var $calendar_select;
+  var $video_dialog;
   var $vid;
   var plume_viz_data;
 
@@ -45,6 +46,18 @@
     return m;
   }
 
+  function initVideoDialog() {
+    $video_dialog = widgets.createCustomDialog({
+      selector: "#video-dialog",
+      show_cancel_btn: false
+    });
+
+    $(".ui-dialog-titlebar-close").on("click",function(){
+      $("#tutorial")[0].pause();
+      $video_dialog.remove();
+    })
+  }
+
   function initCalendarBtn() {
     $calendar_select = $("#calendar");;
 
@@ -57,18 +70,21 @@
         createTimeline(plume_viz_data[current_year]);
         timeline.selectFirstBlock();
       }
-      // Have selector go back to showing default option
-      $(this).prop("selectedIndex", 0);
 
     });
   }
 
   function drawCalendar(year_list) {
     $calendar_select.empty();
-    $calendar_select.append($('<option selected value="-1">Year</option>'));
+    $calendar_select.append($('<option value="-1">Year</option>'));
     for (var i = year_list.length - 1; i >= 0; i--) {
       var year = year_list[i];
-      $calendar_select.append($('<option value="' + year + '">' + year + '</option>'));
+      if(year === current_year) {
+        $calendar_select.append($('<option selected value="' + year + '">' + year + '</option>'));
+      }
+      else {
+        $calendar_select.append($('<option value="' + year + '">' + year + '</option>'));
+      }
     }
   }
 
@@ -130,6 +146,16 @@
   function init() {
     $vid = $("#video-viewer");
     util.addVideoClearEvent();
+    if(localStorage.getItem('popState') != 'shown'){
+      initVideoDialog();
+      $video_dialog.dialog("open");
+      $(" .custom-dialog-flat ").css('width','fit-content');
+      $(" .custom-dialog-flat ").css('width','-moz-fit-content')
+      localStorage.setItem('popState','shown')
+    }
+    else {
+      $("#tutorial")[0].remove();
+    }
     widgets.setCustomLegend($("#legend"));
     if ($(window).width() < 450) {
       $( ".custom-legend" ).accordion( "option", "active", false );

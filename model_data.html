@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Plume Pittsburgh</title>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="css/frame.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="css/controls.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="css/custom.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="js/Util.js"></script>
+    <script src="js/postmessage.js"></script>
+    <script src="js/index.js"></script>
+  <style>
+    .menu-index {
+      color: rgb(255, 255, 255) !important;
+      opacity: 1 !important;
+      font-weight: 700 !important;
+    }
+    
+    #so2_colorscale {
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+    }
+
+    .graph-img {
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      margin-top:10px;
+      margin-bottom: 10px;
+    }
+
+    .map-img {
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      margin-top:10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+    <div class="menu-container">
+        <div class="menu">
+          <div class="menu-table flex-row-space-between">
+            <div class="logo flex-row-center">
+              <a href="index.html">Plume Pittsburgh</a>
+            </div>
+            <a class="menu-button" tabindex="0" href="javascript:void(0)">
+              <img src="img/menu.png">
+            </a>
+            <div class="menu-items flex-row-center flex-item">
+              <a href="index.html">Map</a>
+              <a href="take_action.html">Take Action</a>
+              <a href="about.html">About</a>
+              <a href="model_data.html" class="menu-highlight">Model and Data</a>
+              <a href="resources.html">Resources</a>
+            </div>
+          </div>
+        </div>
+      </div>
+  <div class="content-container">
+    <div class="content">
+      <div class="content-table flex-column">
+        <!--Start Text Only-->
+        <div class="flex-row">
+          <div class="flex-item flex-column">
+            <h2 class="add-top-margin">Moving dots show how pollution spreads from some of the most significant emitters, using the most detailed NOAA weather models.</h2>
+            <hr>
+            <p class="text">
+              While no weather model is perfect, these modeled pollution paths show striking correspondence with Smell Pittsburgh reports and total-VOC air monitors. The models show how emissions maintain significant concentration in the air even miles from a source, especially on days when the ground is colder than the upper level atmosphere, causing pollution to concentrate close to the ground in a common condition known as an inversion. The greater Pittsburgh area experiences an average of around 157 inversion days per year [1].
+            </p>
+            <p class="text">
+              Our model shows the four largest emitters of SO<sub>2</sub> and other sulfur oxides in Allegheny County, which correlates strongly with smell reports and also health impacts.  See <a target="_tab" href="https://docs.google.com/spreadsheets/d/1QpDqGqsJpZUj4jycMfw221idejA7N-kN/edit#gid=2034973782">self-reported  air emissions inventory</a> for these four sources.  There are a number of smaller pollution sources not shown that can also correlate with smell reports and monitor values and impact health. 
+            </p>
+            <p class="text">
+              As pollution rises, dots fade away as the ground-level impact reduces. This model shows only the variability from weather conditions and does not consider individual sources changing pollutant outputs over time.
+            </p>
+        <!--End Text Only-->
+        <!-------------------------------------------------------------------------------------------->
+
+        <h2>About the SO<sub>2</sub> Monitors</h2>
+        <p class="text">
+          In the greater Pittsburgh area, SO<sub>2</sub> is a commonly measured pollutant associated with adverse health outcomes.
+        </p>
+        <p class="text">
+          We know this from health impacts on residents living close to Shenango coke works in the years before and after its shutdown in 2016.  After shutdown, emergency room visits for asthma and COPD dropped 38%.  Cardiovascular emergencies dropped 27%[2][3].   And pediatric asthma studied in a local school showed a 25% reduction in physician-diagnosed asthma the year after shutdown.
+        </p>
+        <p class="text">
+          These reductions in health impact were observed together with a <a target="_tab" href="https://environmentaldata.org/#channels=1.SO2_PPM&time=1321801526.387,1627389513.580&plotHeight=5.000&plotAreaHeight=40.000&showFilters=true&showSettings=true&showResults=true&center=40.701157744642764,-80.06189166539133&zoom=7&search=avalon+so2">10-fold reduction in SO<sub>2</sub></a>, from an average of 1.5 PPB from Jan 2014-Dec 2015, down to an average of 0.15 PPB from July 2016-Jun 2018.
+        </p>
+        <p class="text">
+          We therefore use the following color scale when showing SO<sub>2</sub> measurements:
+        </p>
+        <img src="so2_colorscale_labelled.png" id="so2_colorscale""></img>
+        
+
+        <h2>Pollution Carries</h2>
+          <p class="text">
+          Our model shows that air pollution can carry significant distances. To validate this hypothesis, we ran analyses of ACHD monitor
+          data at varying distances from one of the biggest sulfur emitters in Allegheny County shown on our site, Clairton Coke Works.
+          </p>
+          <img src="img/south_fayette_map.png" class="map-img"></img>
+          <p class="text">
+            The above image shows ACHD monitors in blue and the major polluters in the Mon Valley in dark red. A protractor is placed over the
+            South Fayette monitor to show
+            relative wind directions. Clairton is at a 106.7° angle from South Fayette. The monitor is over 16 miles away from Clairton.
+          </p>
+          <p class="text">
+            We plotted wind direction vs. SO<sub>2</sub> measurements to see if pollution that carries from the direction of Clairton, 106.7°, would register higher levels of SO<sub>2</sub>.
+            We chose three timeframes to compare: before, during, and after the 2019 fire at Clairton Coke Works, which damaged pollution controls and released sulfur pollution for several months
+            at the begining of the year.
+          </p>
+          <div class="gallery">
+          <img src="img/south_fayette_before_clairton_fire.png" class="graph-img"></img>
+          <img src="img/south_fayette_during_clairton_fire.png" class="graph-img"></img>
+          <img src="img/south_fayette_after_clairton_fire.png" class="graph-img"></img>
+          <p class="text">
+            These plots consistently show elevated levels of SO<sub>2</sub> from the direction of Clairton. During the multi-month pollution event, the levels of SO<sub>2</sub>
+            coming from Clairton almost doubled.
+          </p>
+          <p class="text">
+            This analysis suggests that air pollution has effects beyond the immediate surroundings of emitters. Pollution in one part of the airshed has 
+            the potential to spread throughout the entire region.
+          </p>
+        </div>
+
+
+        <h2>References</h2>
+        <ol class="nested" style="color:white">
+          <li>
+            Allegheny County Health Department Inversion Report 2019: <a href="https://www.alleghenycounty.us/uploadedFiles/Allegheny_Home/Health_Department/Programs/Air_Quality/AnnualSfcTempInversionAnalysis-2019.pdf">(Link)</a>
+          </li>
+          <li>
+            Brink, Marshall, Hacker, Talbot.  Changes in emergency department visits for respiratory and cardiovascular disease after closure of a coking operation near Pittsburgh, PA, Journal of Air Pollution and Health, January 2020.
+            <a target="_tab" href="https://japh.tums.ac.ir/index.php/japh/article/view/216">(Link)</a>
+          </li>
+          <li>
+            Marusic, ER visits for asthma dropped 38% the year after one of Pittsburgh's biggest polluters shut down, Environmental Health News, May 8, 2018 
+            <a target="_tab" href="https://www.ehn.org/shenango-coke-works-closed-asthma-dropped-2566777141/particle-1">(Link)</a>
+          </li>
+        </ol>
+      
+          </div>
+        </div>
+        <!-------------------------------------------------------------------------------------------->
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
