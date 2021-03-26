@@ -114,8 +114,9 @@
         canonicalLink.setAttribute("href", `/${updated_query_url}`)
 
         let tweetButtonContainer = document.getElementById("tweetButtonContainer")
-        if (tweetButtonContainer.firstChild)
+        while (tweetButtonContainer.firstChild) {
           tweetButtonContainer.removeChild(tweetButtonContainer.firstChild)
+        }
         // class="twitter-share-button" href="https://twitter.com/intent/tweet" id="tweetButton"
         let tweetButton = document.createElement("a")
         tweetButton.setAttribute("class", "twitter-share-button")
