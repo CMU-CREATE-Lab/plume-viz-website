@@ -108,14 +108,27 @@
         $vid.prop("src", metadata["url"]);
         util.handleVideoPromise($vid.get(0), "load"); // load to reset video promise
         var updated_query_url = getShareQuery(metadata["date"])
-        sendQueryStringToParent(updated_query_url);
-        util.setShareUrl(updated_query_url);
 
         // update tweet button
         let canonicalLink = document.getElementById("canonicalLink")
-        canonicalLink.setAttribute("href", `https://staging.plumepgh.org/${updated_query_url}`)
-        // let tweetButton = document.getElementById("tweetButton")
-        // tweetButton.setAttribute("href", `https://twitter.com/intent/tweet?url=${encodeURIComponent(`staging.plumepgh.org/${updated_query_url}`)}`)
+        canonicalLink.setAttribute("href", `/${updated_query_url}`)
+
+        let tweetButtonContainer = document.getElementById("tweetButtonContainer")
+        tweetButtonContainer.removeChild(tweetButtonContainer.firstChild)
+        // class="twitter-share-button" href="https://twitter.com/intent/tweet" id="tweetButton"
+        let tweetButton = document.createElement("a")
+        tweetButton.setAttribute("class", "twitter-share-button")
+        tweetButton.setAttribute("href", "https://twitter.com/intent/tweet")
+        tweetButton.setAttribute("id", "tweetButton")
+        tweetButtonContainer.append(tweetButton)
+        // if (window.twttrReady)
+        window.twttr.ready( function(twttr) {
+          window.twttr.widgets.load()
+        })
+
+        sendQueryStringToParent(updated_query_url);
+        util.setShareUrl(updated_query_url);
+
 
       },
       colorBin: [0, 16, 32, 46, 77, 183],
