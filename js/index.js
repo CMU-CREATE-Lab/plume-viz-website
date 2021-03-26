@@ -66,7 +66,7 @@
         sensorSearchText: "RAMP",
         sensorSearchNegativeTerms: ["RAMP"],
       },
-      "AirViz tVOC Monitors": {
+      "tVOC Monitors": {
         sensorSearchText: "tVOC",
         colorizerLookupFunctionFactory: (value) => undefined,
       },
@@ -82,26 +82,31 @@
         sensorSearchNegativeTerms: ["RAMP"],
         colorizerLookupFunctionFactory: (value) => undefined,
       },
-      "RAMP PM2.5 Monitors": {
-        sensorSearchText: "RAMP PM",
-        sensorSearchNegativeTerms: ["PurpleAir"],
-        colorizerLookupFunctionFactory: (value) => undefined,
-      },
-      "PurpleAir PM2.5 Monitors": {
-        sensorSearchText: "Purple PM2",
-        colorizerLookupFunctionFactory: (value) => undefined,
-        markerSize: 10.0,
-      },
-      "ACHD SO2 Monitors": {
-        sensorSearchText: "ACHD SO2",
-        sensorSearchNegativeTerms: ["RAMP"],
-        colorizerLookupFunctionFactory: (value) => undefined,
-      },
-      "RAMP SO2 Monitors": {
-        sensorSearchText: "RAMP SO2",
+      // "RAMP PM2.5 Monitors": {
+      //   sensorSearchText: "RAMP PM",
+      //   sensorSearchNegativeTerms: ["PurpleAir"],
+      //   colorizerLookupFunctionFactory: (value) => undefined,
+      // },
+      // "PurpleAir PM2.5 Monitors": {
+      //   sensorSearchText: "Purple PM2",
+      //   colorizerLookupFunctionFactory: (value) => undefined,
+      //   markerSize: 10.0,
+      // },
+      "All SO2 Monitors": {
+        sensorSearchText: "SO2",
         sensorSearchNegativeTerms: [],
         colorizerLookupFunctionFactory: (value) => undefined,
       },
+      // "ACHD SO2 Monitors": {
+      //   sensorSearchText: "ACHD SO2",
+      //   sensorSearchNegativeTerms: ["RAMP"],
+      //   colorizerLookupFunctionFactory: (value) => undefined,
+      // },
+      // "RAMP SO2 Monitors": {
+      //   sensorSearchText: "RAMP SO2",
+      //   sensorSearchNegativeTerms: [],
+      //   colorizerLookupFunctionFactory: (value) => undefined,
+      // },
     }
 
     // populate selector options
