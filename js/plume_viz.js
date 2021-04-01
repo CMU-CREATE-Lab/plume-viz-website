@@ -109,24 +109,13 @@
         util.handleVideoPromise($vid.get(0), "load"); // load to reset video promise
         var updated_query_url = getShareQuery(metadata["date"])
 
+
+
         // update tweet button
         let canonicalLink = document.getElementById("canonicalLink")
         canonicalLink.setAttribute("href", `/${updated_query_url}`)
 
-        let tweetButtonContainer = document.getElementById("tweetButtonContainer")
-        while (tweetButtonContainer.firstChild) {
-          tweetButtonContainer.removeChild(tweetButtonContainer.firstChild)
-        }
-        // class="twitter-share-button" href="https://twitter.com/intent/tweet" id="tweetButton"
-        let tweetButton = document.createElement("a")
-        tweetButton.setAttribute("class", "twitter-share-button")
-        tweetButton.setAttribute("href", "https://twitter.com/intent/tweet")
-        tweetButton.setAttribute("id", "tweetButton")
-        tweetButtonContainer.append(tweetButton)
-        // if (window.twttrReady)
-        window.twttr.ready( function(twttr) {
-          window.twttr.widgets.load()
-        })
+        createTwitterButton()
 
         sendQueryStringToParent(updated_query_url);
         util.setShareUrl(updated_query_url);
@@ -146,6 +135,24 @@
     // Add horizontal scrolling to the timeline
     // Needed because Android <= 4.4 won't scroll without this
     addTouchHorizontalScroll($timeline_container);
+  }
+
+  function createTwitterButton() {
+    let tweetButtonContainer = document.getElementById("tweetButtonContainer")
+    while (tweetButtonContainer.firstChild) {
+      tweetButtonContainer.removeChild(tweetButtonContainer.firstChild)
+    }
+    // class="twitter-share-button" href="https://twitter.com/intent/tweet" id="tweetButton"
+    let tweetButton = document.createElement("a")
+    tweetButton.setAttribute("class", "twitter-share-button")
+    tweetButton.setAttribute("href", "https://twitter.com/intent/tweet")
+    tweetButton.setAttribute("id", "tweetButton")
+    tweetButtonContainer.append(tweetButton)
+
+    // if twitter is ready, call the widget reload function
+    window.twttr.ready( function(twttr) {
+      window.twttr.widgets.load()
+    })
   }
 
   function addTouchHorizontalScroll(elem) {
@@ -178,10 +185,16 @@
     else {
       $("#tutorial")[0].remove();
     }
+
     widgets.setCustomLegend($("#legend"));
     if ($(window).width() < 450) {
       $( ".custom-legend" ).accordion( "option", "active", false );
     }
+
+    // re-create twitter button on legend opening / closing, as it seems missing on some mobile chrome browsers
+    $("#legend").click( function() {
+      createTwitterButton()
+    })
 
     var query_paras = util.parseVars(window.location.search);
     var json_path;
