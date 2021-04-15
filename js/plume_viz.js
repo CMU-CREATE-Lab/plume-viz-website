@@ -53,7 +53,7 @@
     });
 
     $(".ui-dialog-titlebar-close").on("click",function(){
-      $("#tutorial")[0].pause();
+      $("#tutorial")[0].remove();
       $video_dialog.remove();
     })
   }
