@@ -127,6 +127,10 @@ function colorMapLookup(feedId, channelName) {
 
 
 function colorizeFeedOnMap(feedId, channelName) {
+
+	if (!mapOverlay.markers.selectedFeeds.has(feedId))
+		return
+
   let colorizer = new TiledDataEvaluator(esdr.dataSourceForChannel(feedId, channelName))
 
   let colorLookupFunction = overlayOptions.colorizerLookupFunctionFactory(feedId, channelName)
@@ -161,10 +165,13 @@ function colorizeFeedOnMap(feedId, channelName) {
 
 function clearColorizers() {
 	for (let [feedId, colorizer] of feedMarkerColorizers) {
-	  mapOverlay.setColorizerForFeed(feedId, undefined, undefined)		
+	  mapOverlay.setColorizerForFeed(feedId, undefined, undefined)
+	  colorizer.setCurrentTime(undefined, true)	
+  	mapOverlay.selectFeed(feedId, false)		
 	}
 	for (let [feedId, sizer] of feedMarkerSizers) {
 	  mapOverlay.setSizerForFeed(feedId, undefined, undefined)		
+	  sizer.evaluator.setCurrentTime(undefined, true)	
 	}
 }
 
@@ -184,9 +191,9 @@ function populateColorizers() {
 		channels = channels.filter( name => overlayOptions.allowedSensorChannelNames.has(name))
 		if (channels.length > 0) {
 			// console.log("colorizing", feedId, channels[0])
+  		mapOverlay.selectFeed(feedId, true)		
 			colorizeFeedOnMap(feedId, channels[0])
 			// esdr.selectChannelWithId(channelId, true)
-  		mapOverlay.selectFeed(feedId, true)		
   	}
 	}
 
@@ -223,6 +230,7 @@ function processEsdrSearchResults(searchResults, isAppendUpdate) {
 
 	feedSearchResults = searchResults
 
+	clearColorizers()
 	populateColorizers()
 
 }
