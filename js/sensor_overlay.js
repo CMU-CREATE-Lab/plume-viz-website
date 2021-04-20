@@ -1,8 +1,8 @@
 
 
-import {StaticMapOverlay} from "./explore/staticMapOverlay.js"
-import {ESDR, TiledDataEvaluator} from "./explore/esdrFeeds.js"
-import {ImagePeeker} from "./explore/imagePeeker.js"
+import {StaticMapOverlay} from "./../mapsplode/staticMapOverlay.js"
+import {ESDR, TiledDataEvaluator} from "./../mapsplode/esdrFeeds.js"
+import {ImagePeeker} from "./../mapsplode/imagePeeker.js"
 
 
 
@@ -175,11 +175,10 @@ function populateColorizers() {
 	let currentTimeRange = getCurrentTimeRange()
 	for (let {feedId: feedId, channels: channels} of feedSearchResults) {
 		let feed = esdr.feeds.get(feedId)
-		// exclude feed names that any contain negative term
-		let isExcludedByTerm = overlayOptions.sensorSearchNegativeTerms.some(term => feed.name.indexOf(term) > -1)
+
 		let isExcludedByTime = currentTimeRange && ((parseFloat(feed.maxTimeSecs || 0.0) <= currentTimeRange.max) || (parseFloat(feed.minTimeSecs || 0.0) >= currentTimeRange.min))
 
-		if (isExcludedByTerm || isExcludedByTime || !channels)
+		if (isExcludedByTime || !channels)
 			continue
 
 		channels = channels.filter( name => overlayOptions.allowedSensorChannelNames.has(name))
@@ -340,7 +339,7 @@ function initSensorOverlay() {
 	mapOverlay.colors.activeFeedStrokeColor = [0.0, 0.0, 0.0, 0.0]
 	mapOverlay.markerScreenScale = 600.0
 
-	esdr.searchQuery = {text: overlayOptions.sensorSearchText}
+	esdr.searchQuery = {text: overlayOptions.sensorSearchText, exclusion: overlayOptions.sensorSearchNegativeTerms.join(" ")}
 
   // install search results callback
   esdr.searchCallback = (searchResults, isAppendUpdate) => processEsdrSearchResults(searchResults, isAppendUpdate)
@@ -366,7 +365,7 @@ function initSensorOverlay() {
 		// reset dataSource to be able to change marker size
 		resetDataSource()
 
-		esdr.searchQuery = {text: overlayOptions.sensorSearchText}
+		esdr.searchQuery = {text: overlayOptions.sensorSearchText, exclusion: overlayOptions.sensorSearchNegativeTerms.join(" ")}
 
 	}
 
