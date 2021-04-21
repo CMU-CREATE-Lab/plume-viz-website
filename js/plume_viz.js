@@ -10,6 +10,7 @@
   var $calendar_select;
   var $video_dialog;
   var $vid;
+  var videoTimeControls;
   var plume_viz_data;
 
   // Handles the sending of cross-domain iframe requests.
@@ -94,10 +95,11 @@
     var timeline_setting = {
       select: function ($e, obj) {
         var metadata = $e.data();
-        $vid.one("canplay", function () {
+        // VideoTimeControls library handles this now
+        /*$vid.one("canplay", function () {
           // Play the video
           util.handleVideoPromise(this, "play");
-        });
+        });*/
 
         // inform potential listeners of date change (like the sensor overlay)
         if (window.plumeVizDateChangeListeners)
@@ -174,6 +176,18 @@
 
   function init() {
     $vid = $("#video-viewer");
+
+    videoTimeControls = new VideoTimeControls({
+      videoId: "video-viewer",
+      videoFps: 30,
+      playOnLoad: true,
+      captureTimes: [],
+      sliderColor: "red",
+      showSpeedControls: false,
+      showTimestamps: false,
+      showFullscreenControls: false
+    });
+
     util.addVideoClearEvent();
     if(localStorage.getItem('popState') != 'shown'){
       initVideoDialog();

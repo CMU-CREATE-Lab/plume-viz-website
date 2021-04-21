@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link media="screen" rel="stylesheet" type="text/css" href="css/jquery-ui/smoothness/jquery-ui.custom.css" />
+    <link media="screen" rel="stylesheet" type="text/css" href="css/defaultUI.css" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.custom.min.js"></script>
+    <script type="text/javascript" src="js/jquery.ba-resize.min.js"></script>
+    <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="js/VideoTimeControls.js"></script>
+    <script tyep="text/javascript" src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script tyep="text/javascript" src="https://momentjs.com/downloads/moment-timezone-with-data-10-year-range.min.js"></script>
+
+    <script>
+      var videoTimeControls;
+      var currentDateStr = "2021-04-01";
+      var currentVideoDate = moment.tz(currentDateStr, "America/New_York").subtract(3, "hours").toDate();
+      var currentDateInMs = currentVideoDate.getTime();
+
+      $(function() {
+        //$.ajax({
+        //  dataType: "json",
+        //  url: "https://tiles.cmucreatelab.org/ecam/timemachines/golfcourse2/golfcourse2.final.json",
+        //  success: function(data) {
+            videoTimeControls = new VideoTimeControls({
+              videoId: "video0",
+              videoFps: 30,
+              playOnLoad: true,
+              captureTimes: [],
+              sliderColor: "red",
+              showSpeedControls: false,
+              showTimestamps: false,
+              showFullscreenControls: false
+           });
+        //  }
+        //});
+      });
+    </script>
+  </head>
+  <body style="overflow: hidden;">
+    <video id="video0" muted preload playsinline loop src="output.mp4"></video>
+  </body>
+</html>
