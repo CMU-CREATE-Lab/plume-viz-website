@@ -23,6 +23,11 @@
       opacity: 1 !important;
       font-weight: 700 !important;
     }
+
+    #tutorial-video {
+      height: calc(0.56 * 80vw);
+      max-height: 385px;
+    }
   </style>
 </head>
 
@@ -53,10 +58,8 @@
           <h2 class="content-table.h2 add-top-margin">About Plume Pittsburgh</h2>
         </div>
         <hr>
-        <video preload="" controls="" playsinline="" class="image" autoplay muted>
-          <source src="vid/tutorial.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
+        <iframe id="tutorial-video" class="image" width="560" height="315" src="https://www.youtube.com/embed/fS0fTpJX4Ko?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    
       </div>
       <div class="content-table flex-column">
         <!-------------------------------------------------------------------------------------------->

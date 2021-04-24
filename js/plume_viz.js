@@ -4,12 +4,13 @@
   var util = new edaplotjs.Util();
   var timeline;
   var date_to_index;
-  var current_date = "2021-03-21"; // the default date
+  var current_date = "2021-04-05"; // the default date
   var current_year = current_date.split("-")[0];
   var widgets = new edaplotjs.Widgets();
   var $calendar_select;
   var $video_dialog;
   var $vid;
+  var videoTimeControls;
   var plume_viz_data;
 
   // Handles the sending of cross-domain iframe requests.
@@ -53,7 +54,7 @@
     });
 
     $(".ui-dialog-titlebar-close").on("click",function(){
-      $("#tutorial")[0].pause();
+      $("#tutorial")[0].remove();
       $video_dialog.remove();
     })
   }
@@ -94,10 +95,11 @@
     var timeline_setting = {
       select: function ($e, obj) {
         var metadata = $e.data();
-        $vid.one("canplay", function () {
+        // VideoTimeControls library handles this now
+        /*$vid.one("canplay", function () {
           // Play the video
           util.handleVideoPromise(this, "play");
-        });
+        });*/
 
         // inform potential listeners of date change (like the sensor overlay)
         if (window.plumeVizDateChangeListeners)
@@ -208,6 +210,18 @@
 
   function init() {
     $vid = $("#video-viewer");
+
+    videoTimeControls = new VideoTimeControls({
+      videoId: "video-viewer",
+      videoFps: 30,
+      playOnLoad: true,
+      captureTimes: [],
+      sliderColor: "red",
+      showSpeedControls: false,
+      showTimestamps: false,
+      showFullscreenControls: false
+    });
+
     util.addVideoClearEvent();
     if(localStorage.getItem('popState') != 'shown'){
       initVideoDialog();
