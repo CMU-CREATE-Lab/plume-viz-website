@@ -4,7 +4,7 @@
 <head>
   <title>Plume PGH</title>
   <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="canonical" href="https://staging.plumepgh.org/" id="canonicalLink">
+  <link rel="canonical" href="https://plumepgh.org/" id="canonicalLink">
   <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" media="screen" rel="stylesheet" type="text/css" />
   <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" media="screen" rel="stylesheet" type="text/css" />
   <link href="css/frame.css" media="screen" rel="stylesheet" type="text/css" />
@@ -187,6 +187,8 @@
 </style>
 
 <body>
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v10.0&appId=270988874675293&autoLogAppEvents=1" nonce="GrFfT3Dc"></script>
   <div id="timeline-container" class="noselect timeline-container"></div>
   <div id="calendar-btn" title="Calendar" class="custom-button-flat"><select id="calendar"></select></div>
   <div id="video-container" class="noselect video-container">
@@ -213,7 +215,8 @@
           <li><span style="background:#ec8a27;"></span>Cheswick Generating Station</li>
           <li><a target="_top" href="about.html">About the model and data</a></li>
           <li id="tweetButtonContainer"><a class="twitter-share-button" href="https://twitter.com/intent/tweet" id="tweetButton">Tweet</a></li>
-        </ul>
+          <li id="fbShareButtonContainer"><div id="fbShareButton" class="fb-share-button" data-href="https://plumepgh.org" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fplumepgh.org%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div></li>
+          </ul>
       </div>
     </div>
   </div>

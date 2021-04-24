@@ -116,6 +116,7 @@
         canonicalLink.setAttribute("href", `/${updated_query_url}`)
 
         createTwitterButton()
+        createFbShareButton(`https://${location.hostname}/${updated_query_url}`)
 
         sendQueryStringToParent(updated_query_url);
         util.setShareUrl(updated_query_url);
@@ -154,6 +155,39 @@
       window.twttr.widgets.load()
     })
   }
+
+
+  function createFbShareButton(shareUrl) {
+
+    let fbShareButton =  document.getElementById("fbShareButton")
+    fbShareButton.setAttribute("data-href", shareUrl)
+    FB.XFBML.parse();
+    return
+
+    // FIXME: left in code as its not clear yet if js location.hostname works as expected, etc
+    // let fbButtonContainer = document.getElementById("fbShareButtonContainer")
+    // while (fbButtonContainer.firstChild) {
+    //   fbButtonContainer.removeChild(fbButtonContainer.firstChild)
+    // }
+    // // class="twitter-share-button" href="https://twitter.com/intent/tweet" id="tweetButton"
+    // let shareButtonDiv = document.createElement("div")
+    // shareButtonDiv.setAttribute("class", "fb-share-button")
+    // shareButtonDiv.setAttribute("data-href", shareUrl)
+    // shareButtonDiv.setAttribute("data-layout", "button-count")
+    // shareButtonDiv.setAttribute("data-size", "small")
+    // let shareButtonLink = document.createElement("a")
+    // shareButtonLink.setAttribute("class", "fb-xfbml-parse-ignore")
+    // shareButtonLink.setAttribute("href", `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&amp;src=sdkpreparse`)
+    // shareButtonLink.setAttribute("target", "_blank")
+    // shareButtonLink.text = "Share"
+
+    // shareButtonDiv.append(shareButtonLink)
+    // fbButtonContainer.append(shareButtonDiv)
+
+    // // re-parse button
+    // FB.XFBML.parse();
+  }
+
 
   function addTouchHorizontalScroll(elem) {
     var scrollStartPos, startTime, endTime, newPos, startTouchX, endTouchX;
