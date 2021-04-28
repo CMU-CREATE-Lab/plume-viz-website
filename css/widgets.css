@@ -570,6 +570,11 @@
   border: 1px solid #777;
 }
 
+/* this is for eg. facebook share button's span that is SDK generated, that shouldn't have borders */
+.custom-legend ul.legend-labels li div span {
+  border: none;
+}
+
 .custom-legend .legend-source {
   font-size: 12px;
   color: #777;
