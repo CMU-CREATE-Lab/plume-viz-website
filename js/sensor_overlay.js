@@ -164,6 +164,9 @@ function colorizeFeedOnMap(feedId, channelName) {
 }
 
 function clearColorizers() {
+	// make sure esdr variable is defined before calling function on it
+	esdr &&	esdr.cancelPendingDataRequests()
+
 	for (let [feedId, colorizer] of feedMarkerColorizers) {
 	  mapOverlay.setColorizerForFeed(feedId, undefined, undefined)
 	  colorizer.setCurrentTime(undefined, true)	
