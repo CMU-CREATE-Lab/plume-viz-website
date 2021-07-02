@@ -23,11 +23,10 @@
       opacity: 1 !important;
       font-weight: 700 !important;
     }
-
-    #tutorial-video {
-      height: calc(0.56 * 80vw);
-      max-height: 385px;
-    }
+    .hangingindent {
+  padding-left: 22px ;
+  text-indent: -40px ;
+}
   </style>
 </head>
 
@@ -46,7 +45,7 @@
               <a href="take_action.html">Take Action</a>
               <a href="about.html">About</a>
               <a href="model_data.html">Model and Data</a>
-              <a href="resources.html" class="menu-highlight">Resources</a>
+              <a href="resources.html" class="menu-highlight">FAQ</a>
             </div>
           </div>
         </div>
@@ -54,41 +53,78 @@
   <div class="content-container">
     <div class="content">
       <div class="content-table flex-column">
-        <div class="flex-row">
-          <h2 class="content-table.h2 add-top-margin">About Plume Pittsburgh</h2>
-        </div>
-        <hr>
-        <iframe id="tutorial-video" class="image" width="560" height="315" src="https://www.youtube.com/embed/fS0fTpJX4Ko?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    
-      </div>
-      <div class="content-table flex-column">
         <!-------------------------------------------------------------------------------------------->
         <div class="flex-row">
-          <h2 class="content-table.h2 add-top-margin">Further Resources</h2>
-        </div>
-        <hr>
-        <ol style="color:white">
+          <h2 class="add-top-margin">Frequently Asked Questions</h2>
+          </div>
+          
+          <hr>
+          
+        <ol class="nested hangingindent" style="color:white; font-size: 24px; padding-left: 60px;">
           <li>
-            <p class="text-small-margin">
-              Smell Pittsburgh: <a target="_tab" href="http://smellpittsburgh.org">smellpittsburgh.org</a>
-            </p>
+            <a href="#question1">How accurately can PlumePGH tell me how much pollution I’m exposed to every day?</a>
           </li>
           <li>
-            <p class="text-small-margin">
-              NOAA High-Resolution Rapid Refresh (HRRR): <a target="_tab" href="https://rapidrefresh.noaa.gov/hrrr/">rapidrefresh.noaa.gov</a>
-            </p>
+            <a href="#question2">What is the severity of pollution far from the source?</a>
           </li>
           <li>
-            <p class="text-small-margin">
-              Environmental Sensor Data Repository (ESDR): <a target="_tab" href="http://environmentaldata.org">environmentaldata.org</a>
-            </p>
+            <a href="#question3">Which sources are shown and why?</a>
           </li>
           <li>
-            <p class="text-small-margin">
-              Breathe Cam: <a target="_tab" href="https://breatheproject.org/learn/breathe-cam/">breatheproject.org/learn/breathe-cam</a>
-            </p>
+            <a href="#question4">How can I see pollution plumes from pollution sources not currently mapped?</a>
+          </li>
+          <li>
+            <a href="#question5">Why are there missing days from the calendar line?</a>
           </li>
         </ol>
+        <div class="text" style="color:white">
+        <h2 id="question1">1. How accurately can PlumePGH tell me how much pollution I’m exposed to every day?</h2>
+        <span style="font-weight: bold;">All of the variability in exposure shown by PlumePGH is due to air inversions and wind patterns,</span> which are powerful 
+        determinants of pollution exposure in our region.  The modeled emission volume from each facility matches annual 
+        average emissions as declared in the <a href="">self-reported air emissions inventory</a>. Actual emissions from these 
+        facilities do change over time due to a number of unplanned and planned causes, and is an important component of
+         pollution exposure variability, but facilities do not share hourly or daily emissions levels, and PlumePGH is not
+          yet capable of determining these independently.
+
+        <br><br>
+        <h2 id="question2">2. What is the severity of pollution far from the source?</h2>
+
+        NOAA's modern High-Resolution Rapid Refresh (HRRR) weather model underpins much of weather forecasting in the
+         United States, and it shows pollution traveling close to the ground many miles distance, especially during
+         times of inversion.  
+         <br><br>
+        Beyond NOAA's HRRR model, we see pollution impacts at a distance from pollution monitoring data.
+         One example is evidence of Clairton Coke Works' pollution impacting South Fayette, 16 miles away.
+        <br><br>
+         For more details, see <a href="/model_data.html">Pollution Carries</a>.
+
+         <br><br>
+        <h2 id="question3">3. Which sources are shown and why?</h2>
+
+        Our model shows the <b>four largest emitters of SO<sub>2</sub></b> and other sulfur oxides in Allegheny County, which 
+        correlates strongly with smell reports and also health impacts. See the <a href="">self-reported air emissions 
+        inventory</a> for these four sources.  In 2018, these four sources produced 99% of all declared Sulfur
+         oxides in the Allegheny County emissions inventory, 99% of Polycyclic Aromatic Hydrocarbons,
+          and 67% of all PM2.5 declared in the same inventory.  There are a number of smaller pollution 
+          sources not shown that can also correlate with smell reports and monitor values and impact health.
+
+          <br><br>
+        <h2 id="question4">4. How can I see pollution plumes from pollution sources not currently mapped?</h2>
+
+        The PlumePGH team can set up a custom plume visualization for an additional source, subject to
+         limited developer capacity. Feel free to <a href="/about.html">Contact Us.</a>
+
+          <br><br> 
+      <h2 id="question5">5. Why are there missing days from the calendar line?</h2>
+
+        While yearly improvements in NOAA's High-Resolution Rapid Refresh (HRRR) weather model are largely
+         responsible for increasingly accurate weather forecasting in the United States, it's still not
+          100% accurate.  We find that for around 10% of days, plumes predicted by the weather models do not
+           accurately line up with smell reports and monitor values.  Before publishing a day's plume model,
+            we perform a quality assurance analysis and will omit a day if it does not appear to be accurate.
+
+          <br><br><br><br>
+        </div>
       </div>
     </div>
         <!-------------------------------------------------------------------------------------------->
