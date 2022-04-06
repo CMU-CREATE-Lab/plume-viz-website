@@ -4,7 +4,7 @@
   var util = new edaplotjs.Util();
   var timeline;
   var date_to_index;
-  var current_date = "2021-06-02"; // the default date
+  var current_date = "2022-03-15"; // the default date
   var current_year = current_date.split("-")[0];
   var widgets = new edaplotjs.Widgets();
   var $calendar_select;
