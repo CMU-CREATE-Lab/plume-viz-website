@@ -119,6 +119,7 @@
 
         createTwitterButton()
         createFbShareButton(`https://${location.hostname}/${updated_query_url}`)
+        updateLegend(metadata.date)
 
         sendQueryStringToParent(updated_query_url);
         util.setShareUrl(updated_query_url);
@@ -167,6 +168,23 @@
     return
   }
 
+  function updateLegend(date) {
+    console.log("in update legend")
+      //hide cheswick from legend after facility shutdown
+      if (Date.parse(date) >= Date.parse("2022-04-01")) {
+        console.log("hiding...")
+        $("#cheswick_legend_item").hide()
+        $("#ui-id-2").css({"height":176})
+      }
+      if (Date.parse(date) < Date.parse("2022-04-01")) {
+        $("#cheswick_legend_item").show()
+        console.log("showing...")
+        console.log(date)
+        $("#ui-id-2").css({"height":194})
+      }
+  }
+
+
 
   function addTouchHorizontalScroll(elem) {
     var scrollStartPos, startTime, endTime, newPos, startTouchX, endTouchX;
@@ -209,6 +227,11 @@
     }
     else {
       $("#tutorial")[0].remove();
+    }
+
+    //hide cheswick from legend after facility shutdown
+    if (Date.parse(current_date) > Date.parse("2022-04-01")) {
+      $("#cheswick_legend_item").hide()
     }
 
     widgets.setCustomLegend($("#legend"));
